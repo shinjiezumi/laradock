@@ -1,0 +1,29 @@
+version: '3'
+
+services:
+  web:
+    build: docker/nginx
+    ports:
+      - 80:80
+    depends_on:
+      - app
+    volumes:
+      - ./log/nginx:/var/log/nginx
+      - ./docker/nginx/conf.d:/etc/nginx/conf.d
+      - ./src/public:/var/www/html/public
+  app:
+    build: docker/php
+    depends_on:
+      - db
+    volumes:
+      - ./docker/php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
+      - ./src:/var/www/html
+  db:
+    build: docker/mysql
+    ports:
+      - 3306:3306
+    volumes:
+      - ./docker/mysql/data:/var/lib/mysql
+      - ./log/mysql:/var/log/mysql
+    environment:
+      MYSQL_ROOT_PASSWORD: root
