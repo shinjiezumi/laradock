@@ -30,3 +30,9 @@ services:
       - ./log/mysql:/var/log/mysql
     environment:
       MYSQL_ROOT_PASSWORD: root
+  redis:
+    build: docker/redis
+    ports:
+      - 16379:6379
+    volumes:
+      - ./docker/redis/data/:/data
