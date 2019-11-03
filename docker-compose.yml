@@ -10,7 +10,7 @@ services:
     volumes:
       - ./log/nginx:/var/log/nginx
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
-      - ./src/public:/var/www/html/public
+      - ./public:/var/www/html/public
   app:
     build: docker/php
     depends_on:
@@ -18,13 +18,13 @@ services:
     volumes:
       - ./docker/php/conf/www.conf:/usr/local/etc/php-fpm.d/www.conf
       - ./docker/php/php.ini:/usr/local/etc/php/php.ini
-      - ./src:/var/www/html
+      - ./:/var/www/html
     environment:
       TZ: Asia/Tokyo
   db:
     build: docker/mysql
     ports:
-      - 13306:3306
+      - 3306:3306
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./log/mysql:/var/log/mysql
@@ -33,6 +33,6 @@ services:
   redis:
     build: docker/redis
     ports:
-      - 16379:6379
+      - 6379:6379
     volumes:
       - ./docker/redis/data/:/data
