@@ -11,6 +11,8 @@
 |
 */
 
+use App\Jobs\Sample;
+
 Route::get('/', function () {
     return view('welcome');
 });
