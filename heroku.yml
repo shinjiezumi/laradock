@@ -1,0 +1,11 @@
+setup:
+  addons:
+    - plan: cleardb
+      as: DATABASE
+build:
+  docker:
+    web: Dockerfile.prod
+    worker: Dockerfile.prod
+run:
+  web: php artisan serve --host=0.0.0.0 --port=$PORT
+  worker: php artisan queue:restart && php artisan queue:work --tries=3
