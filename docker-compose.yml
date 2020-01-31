@@ -29,7 +29,9 @@ services:
       - ./docker/mysql/data:/var/lib/mysql
       - ./log/mysql:/var/log/mysql
     environment:
+      MYSQL_DATABASE: laradock
       MYSQL_ROOT_PASSWORD: root
+      TZ: Asia/Tokyo
   redis:
     build: docker/redis
     ports:

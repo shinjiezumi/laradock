@@ -11,12 +11,13 @@ Laravel5.8ベースのシンプルなDocker環境です。
 ## 使い方
 ### インストール
 ```
- git clone https://github.com/s9iwork/laradock.git
- cd laradock
- docker-compose up -d
- docker-compose exec app bash
- sh ./init.sh
- service supervisor start
+$ git clone https://github.com/shinjiezumi/laradock.git
+$ cd laradock
+$ docker-compose up -d
+$ docker-compose exec app bash
+
+# sh ./init.sh
+# service supervisor start
 ```
 
 ### ブラウザアクセス
