@@ -29,3 +29,7 @@ Route::get('/event', function () {
 
     event(new \App\Events\Sample($data));
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');
