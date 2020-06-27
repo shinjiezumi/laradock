@@ -40,3 +40,7 @@ services:
       - 6379:6379
     volumes:
       - ./docker/redis/data/:/data
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
