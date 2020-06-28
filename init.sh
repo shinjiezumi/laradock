@@ -6,5 +6,7 @@ php composer.phar install
 cp .env.example .env
 php artisan key:generate
 chmod -R a+w storage/ bootstrap/cache
+php composer.phar dump-autoload
+php artisan migrate --seed
 
 npm install

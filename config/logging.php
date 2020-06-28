@@ -42,13 +42,13 @@ return [
 
         'single' => [
             'driver' => 'single',
-            'path' => '/var/www/html/logs/php/laravel.log',
+            'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
         ],
 
         'daily' => [
             'driver' => 'daily',
-            'path' => '/var/www/html/logs/php/laravel.log',
+            'path' => storage_path('logs/laravel.log'),
             'level' => 'debug',
             'days' => 14,
         ],

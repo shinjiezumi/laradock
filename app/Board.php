@@ -11,9 +11,9 @@ class Board extends Model
     protected $guarded = ['id'];
 
     public static $rules = [
-        'title' => 'required',
-        'body' => 'required',
-        'author' => 'required',
+        'title' => 'required|max:255',
+        'body' => 'required|max:1024',
+        'author' => 'required|max:255',
     ];
 
     /**
@@ -29,6 +29,6 @@ class Board extends Model
      */
     public function tags(): BelongsToMany
     {
-        return $this->belongsToMany(Tag::class);
+        return $this->belongsToMany(Tag::class, 'board_tag_relation');
     }
 }

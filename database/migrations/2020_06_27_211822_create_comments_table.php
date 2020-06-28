@@ -1,8 +1,8 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
+use Illuminate\Database\Schema\Blueprint;
+use Illuminate\Support\Facades\Schema;
 
 class CreateCommentsTable extends Migration
 {
@@ -18,7 +18,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('board_id')->comment('投稿ID');
             $table->text('comment')->comment('コメント');
             $table->string('author')->comment('投稿者');
-            $table->timestamps();
+            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
+            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
         });
