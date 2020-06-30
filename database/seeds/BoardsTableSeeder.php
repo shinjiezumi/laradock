@@ -13,7 +13,7 @@ class BoardsTableSeeder extends Seeder
     {
         for ($i = 0; $i < 50; $i++) {
             DB::table('boards')->insert([
-                'author' => 'ユーザー' . ($i + 1),
+                'name' => 'ユーザー' . ($i + 1),
                 'title' => 'タイトル' . ($i + 1),
                 'body' => '本文' . ($i + 1),
             ]);

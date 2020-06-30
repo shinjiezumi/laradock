@@ -33,7 +33,7 @@
     </div>
 
     @if (session('flash_message'))
-        <div class="alert alert-primary">
+        <div class="alert alert-success">
             {{session('flash_message')}}
         </div>
     @endif
@@ -55,15 +55,15 @@
             <tr>
                 <th>{{$board->id}}</th>
                 <td>{{$board->title}}</td>
-                <td>{{$board->author}}</td>
+                <td>{{$board->name}}</td>
                 <td>{{$board->created_at}}</td>
                 <td>{{$board->updated_at}}</td>
                 <td><a class="btn btn-outline-dark" href="{{route('boards.show', ['id' => $board->id])}}">詳細</a></td>
                 <td>
                     <form action="{{ action('BoardController@destroy', $board->id) }}" method="post"
                           style="display:inline">
-                        {{ csrf_field() }}
-                        {{ method_field('DELETE') }}
+                        @csrf
+                        @method('DELETE')
                         <input type="submit" class="btn btn-outline-dark" value="削除"/>
                     </form>
                 </td>

@@ -17,7 +17,7 @@ class CreateBoardsTable extends Migration
             $table->bigIncrements('id')->comment('投稿ID');
             $table->string('title')->comment('タイトル');
             $table->text('body')->comment('本文');
-            $table->string('author')->comment('投稿者');
+            $table->string('name')->comment('投稿者');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
         });

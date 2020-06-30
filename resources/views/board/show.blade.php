@@ -9,7 +9,7 @@
     </div>
 
     @if (session('flash_message'))
-        <div class="alert alert-primary">
+        <div class="alert alert-success">
             {{session('flash_message')}}
         </div>
     @endif
@@ -22,16 +22,15 @@
             @endforeach
         </div>
         <div class="card-body">
-            <p class="card-text">{{$board->body}}</p>
-            <p class="text-right font-weight-bold mr-10">{{$board->author}}</p>
+            <p class="card-text">{!! nl2br(e($board->body)) !!}</p>
+            <p class="text-right font-weight-bold mr-10">{{$board->name}}</p>
         </div>
     </div>
 
-    {{--<div class="p-comment__list">--}}
-    {{--  <div class="p-comment_listTitle">コメント</div>--}}
-    {{--  <!--[MEMO] renderの引数に複数のモデルオブジェクトを指定すると、そのモデルのビュー(app/views/comments/_comment.html.erb)が自動的に適用される -->--}}
-    {{--  <%= render @board.comments %>--}}
-    {{--</div>--}}
+    <div class="p-comment__list">
+        <div class="p-comment_listTitle">コメント</div>
+        @include('board.comments.comment')
+    </div>
 
-    {{--<%= render partial: 'comments/form', locals: {comment: @comment} %>--}}
+    @include('board.comments.form')
 @endsection

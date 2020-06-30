@@ -6,9 +6,9 @@
         @method('PUT')
     @endif
     <div class="form-group">
-        <label for="author">名前</label>
-        <input class="form-control" type="text" id="author" name="author"
-               value="{{ old('author') ?? $board->author ?? ''}}"/>
+        <label for="name">名前</label>
+        <input class="form-control" type="text" id="name" name="name"
+               value="{{ old('name') ?? $board->name ?? ''}}"/>
     </div>
     <div class="form-group">
         <label for="title">タイトル</label>

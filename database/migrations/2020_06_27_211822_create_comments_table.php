@@ -17,7 +17,7 @@ class CreateCommentsTable extends Migration
             $table->bigIncrements('id')->comment('コメントID');
             $table->unsignedBigInteger('board_id')->comment('投稿ID');
             $table->text('comment')->comment('コメント');
-            $table->string('author')->comment('投稿者');
+            $table->string('name')->comment('投稿者');
             $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
             $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
 

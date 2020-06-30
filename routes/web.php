@@ -21,6 +21,9 @@ Route::get('/', static function () {
 
 Route::resource('boards', 'BoardController');
 
+Route::post('/boards/{id}/comments', 'CommentController@store')->name('comments.store');
+Route::delete('/boards/{id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
+
 // 応用
 Route::get('/job', function () {
     $data = 'hoge';

@@ -13,7 +13,7 @@ class Board extends Model
     public static $rules = [
         'title' => 'required|max:255',
         'body' => 'required|max:1024',
-        'author' => 'required|max:255',
+        'name' => 'required|max:255',
     ];
 
     /**
