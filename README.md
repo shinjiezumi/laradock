@@ -20,5 +20,17 @@ $ docker-compose exec app bash
 # service supervisor start
 ```
 
-### ブラウザアクセス
+### ide-helperファイル生成
+```shell
+php artisan clear-compiled
+
+php artisan ide-helper:generate
+
+php artisan ide-helper:meta
+
+php artisan ide-helper:model
+```
+
+### 動作確認
 http://localhost:8000
+
