@@ -11,6 +11,6 @@
             <label for="comment">コメント</label>
             <textarea name="comment" class="form-control" rows="4"></textarea>
         </div>
-        <input type="submit" class="btn btn-primary">
+        <input type="submit" class="btn btn-secondary">
     </form>
 </div>

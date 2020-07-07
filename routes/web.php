@@ -16,11 +16,11 @@ use App\Jobs\Sample;
 Auth::routes();
 
 Route::get('/', static function () {
-    return view('welcome');
+    return view('top');
 });
 
+// 掲示板
 Route::resource('boards', 'BoardController');
-
 Route::post('/boards/{id}/comments', 'CommentController@store')->name('comments.store');
 Route::delete('/boards/{id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
 

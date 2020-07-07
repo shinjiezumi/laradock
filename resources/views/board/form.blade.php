@@ -32,5 +32,7 @@
             </div>
         @endforeach
     </div>
-    <input class="btn btn-primary" type="submit" value="保存">
+    <div class="form-group text-center">
+        <input class="btn btn-secondary" type="submit" value="保存">
+    </div>
 </form>
