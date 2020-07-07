@@ -43,7 +43,7 @@ class BoardRequest extends FormRequest
             'title.required' => 'タイトルを入力してください。',
             'title.max' => 'タイトルは255文字以下で入力してください。',
             'body.required' => '本文を入力してください。',
-            'body.max' => '本文は255文字以下で入力してください。',
+            'body.max' => '本文は1024文字以下で入力してください。',
             'tags.array' => 'タグが不正です',
             'tags.*' => 'タグが不正です',
         ];

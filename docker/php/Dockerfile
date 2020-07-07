@@ -7,7 +7,8 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     iputils-ping \
     vim
 
-RUN docker-php-ext-install pdo_mysql
+RUN apt-get install -y zlib1g-dev \
+    && docker-php-ext-install zip pdo_mysql
 RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 RUN apt-get install -y --no-install-recommends supervisor
