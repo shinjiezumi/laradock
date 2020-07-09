@@ -37,8 +37,8 @@ class CommentRequest extends FormRequest
         return [
             'name.required' => '名前を入力してください。',
             'name.max' => '名前は255文字以下で入力してください。',
-            'comment.required' => '本文を入力してください。',
-            'comment.max' => '本文は255文字以下で入力してください。',
+            'comment.required' => 'コメントを入力してください。',
+            'comment.max' => 'コメントは1024文字以下で入力してください。',
         ];
     }
 }
