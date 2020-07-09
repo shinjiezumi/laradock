@@ -8,7 +8,6 @@ use Throwable;
 class BoardRequestTest extends BaseTestCase
 {
     /**
-     * @test
      * @return void
      * @throws Throwable
      */
@@ -25,7 +24,6 @@ class BoardRequestTest extends BaseTestCase
     }
 
     /**
-     * @test
      * @return void
      * @throws Throwable
      */

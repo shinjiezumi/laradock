@@ -11,7 +11,6 @@ class TopTest extends BaseTestCase
     /**
      * トップページ表示
      *
-     * @test
      * @return void
      * @throws Throwable
      */
