@@ -19,7 +19,7 @@
             <div class="card-header bg-secondary text-white">
                 <h4>{{$board->title}}</h4>
                 @foreach($board->tags as $tag)
-                    <span class="badge badge-secondary">{{$tag->name}}</span>
+                    <span class="badge badge-light">{{$tag->name}}</span>
                 @endforeach
             </div>
             <div class="card-body">
