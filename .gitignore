@@ -1,5 +1,7 @@
 /node_modules
 /public/hot
+/public/js
+/public/css
 /public/storage
 /storage/*.key
 /vendor
@@ -12,3 +14,5 @@ yarn-error.log
 .idea
 /docker/mysql/data/mysql/func.frm
 _ide_helper.php
+_ide_helper_models.php
+.phpstorm.meta.php

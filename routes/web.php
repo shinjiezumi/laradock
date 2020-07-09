@@ -13,10 +13,18 @@
 
 use App\Jobs\Sample;
 
-Route::get('/', function () {
-    return view('welcome');
+Auth::routes();
+
+Route::get('/', static function () {
+    return view('top');
 });
 
+// 掲示板
+Route::resource('boards', 'BoardController');
+Route::post('/boards/{id}/comments', 'CommentController@store')->name('comments.store');
+Route::delete('/boards/{id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
+
+// 応用
 Route::get('/job', function () {
     $data = 'hoge';
     \Log::debug("dispatch job!!");
@@ -29,3 +37,6 @@ Route::get('/event', function () {
 
     event(new \App\Events\Sample($data));
 });
+
+
+Route::get('/home', 'HomeController@index')->name('home');

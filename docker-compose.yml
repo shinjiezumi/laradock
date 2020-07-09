@@ -8,9 +8,11 @@ services:
     depends_on:
       - app
     volumes:
-      - ./log/nginx:/var/log/nginx
+      - ./logs/nginx:/var/log/nginx
       - ./docker/nginx/conf.d:/etc/nginx/conf.d
       - ./public:/var/www/html/public
+    environment:
+      TZ: Asia/Tokyo
   app:
     build: docker/php
     depends_on:
@@ -27,7 +29,7 @@ services:
       - 3306:3306
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
-      - ./log/mysql:/var/log/mysql
+      - ./logs/mysql:/var/log/mysql
     environment:
       MYSQL_DATABASE: laradock
       MYSQL_ROOT_PASSWORD: root
@@ -38,3 +40,11 @@ services:
       - 6379:6379
     volumes:
       - ./docker/redis/data/:/data
+  mailhog:
+    image: mailhog/mailhog
+    ports:
+      - 8025:8025
+  selenium:
+    image: selenium/standalone-chrome
+    ports:
+      - 4444:4444
