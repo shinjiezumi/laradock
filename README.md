@@ -1,5 +1,5 @@
 # laradock
-Laravel5.8ベースのシンプルなDocker環境です。
+Laravel~~5.8~~6.2ベースのシンプルなDocker環境です。
 
 * nginx
 * php-fpm(php7.2)
