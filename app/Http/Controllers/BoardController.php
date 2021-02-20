@@ -11,6 +11,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
 use Illuminate\View\View;
+use Log;
 use Mockery\Exception;
 
 class BoardController extends Controller
@@ -49,7 +50,7 @@ class BoardController extends Controller
 
         DB::beginTransaction();
         try {
-            $tags  = $data['tags'];
+            $tags = $data['tags'] ?? [];
             unset($data['tags']);
 
             $board = new Board;
@@ -62,6 +63,7 @@ class BoardController extends Controller
             Log::error($e->getMessage());
             DB::rollBack();
         }
+
     }
 
     /**
@@ -104,7 +106,7 @@ class BoardController extends Controller
 
         DB::beginTransaction();
         try {
-            $tags  = $data['tags'];
+            $tags = $data['tags'];
             unset($data['tags']);
 
             $board = Board::find($boardId);
@@ -112,7 +114,7 @@ class BoardController extends Controller
             $board->tags()->sync($tags);
             DB::commit();
 
-            return redirect(route('boards.show', ['id' => $boardId]))->with('flash_message', '投稿を更新しました');;
+            return redirect(route('boards.show', ['board' => $boardId]))->with('flash_message', '投稿を更新しました');
         } catch (Exception $e) {
             Log::error($e->getMessage());
             DB::rollBack();

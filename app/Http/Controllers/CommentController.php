@@ -4,7 +4,6 @@ namespace App\Http\Controllers;
 
 use App\Comment;
 use App\Http\Requests\CommentRequest;
-use DB;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Routing\Redirector;
@@ -25,7 +24,7 @@ class CommentController extends Controller
         $comment = new Comment;
         $comment->board_id = $boardId;
         $comment->fill($data)->save();
-        return redirect(route('boards.show', ['id' => $boardId]))->with('flash_message', 'コメントを投稿しました');
+        return redirect(route('boards.show', ['board' => $boardId]))->with('flash_message', 'コメントを投稿しました');
     }
 
     /**
@@ -39,7 +38,7 @@ class CommentController extends Controller
     {
         $comment = Comment::find($commentId);
         $comment->delete();
-        return redirect(route('boards.show', ['id' => $boardId]))->with('flash_message', 'コメントを削除しました');
+        return redirect(route('boards.show', ['board' => $boardId]))->with('flash_message', 'コメントを削除しました');
     }
 
 }

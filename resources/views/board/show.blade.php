@@ -5,7 +5,7 @@
         <div class="d-flex align-items-center mt-4 mb-4">
             <div class="ml-auto boards__linkBox">
                 <a class="btn btn-outline-dark" href="{{route('boards.index')}}">一覧</a>
-                <a class="btn btn-outline-dark" href="{{route('boards.edit', ['id' => $board->id])}}">編集</a>
+                <a class="btn btn-outline-dark" href="{{route('boards.edit', ['board' => $board->id])}}">編集</a>
             </div>
         </div>
 

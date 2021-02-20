@@ -1,5 +1,5 @@
 <form
-    action="{{Route::currentRouteName() === 'boards.create' ? action('BoardController@store') : action('BoardController@update', ['id' => $board->id]) }}"
+    action="{{Route::currentRouteName() === 'boards.create' ? action('BoardController@store') : action('BoardController@update', ['board' => $board->id]) }}"
     method="POST">
     @csrf
     @if (Route::currentRouteName() === 'boards.edit')
