@@ -45,7 +45,7 @@ class BoardRequest extends FormRequest
             'body.required' => '本文を入力してください。',
             'body.max' => '本文は1024文字以下で入力してください。',
             'tags.array' => 'タグが不正です',
-            'tags.*' => 'タグが不正です',
+            'tags.*.integer' => 'タグが不正です',
         ];
     }
 }

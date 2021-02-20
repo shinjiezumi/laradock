@@ -59,7 +59,7 @@
                     <td>{{$board->name}}</td>
                     <td>{{$board->created_at}}</td>
                     <td>{{$board->updated_at}}</td>
-                    <td><a class="btn btn-outline-dark" href="{{route('boards.show', ['id' => $board->id])}}">詳細</a>
+                    <td><a class="btn btn-outline-dark" href="{{route('boards.show', ['board' => $board->id])}}">詳細</a>
                     </td>
                     <td>
                         <form action="{{ action('BoardController@destroy', $board->id) }}" method="post"
