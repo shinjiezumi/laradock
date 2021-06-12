@@ -24,6 +24,13 @@ Route::resource('boards', 'BoardController');
 Route::post('/boards/{id}/comments', 'CommentController@store')->name('comments.store');
 Route::delete('/boards/{id}/comments/{comment_id}', 'CommentController@destroy')->name('comments.destroy');
 
+// PF
+Route::get('/pf', static function () {
+    return view('pf/index');
+});
+
+
+
 // 応用
 Route::get('/job', function () {
     $data = 'hoge';
