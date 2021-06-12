@@ -124,16 +124,16 @@
       <i class="fa fa-arrow-up"></i>
     </div>
   </main>
-  <footer class="d-flex justify-content-center">
+  <footer class="footer d-flex justify-content-center">
     <div class="d-flex">
-      <div class="mr-3 copyright">&copy; 2019 <a href="https://pf1.s9i.work" class="copyright-link">s9i</a></div>
+      <div class="mr-3 copyright">&copy; {{date('Y')}} <a href="{{env('APP_URL')}}" class="copyright-link">shinjiezumi</a></div>
       <div>
         <ul class="d-flex list-unstyled sns-list">
-          <li class="mr-3"><a href="https://twitter.com/s9iwork" target="_blank">
+          <li class="mr-3"><a href="https://twitter.com/shinjiezumi" target="_blank">
               <img src="/img/twitter.png" alt="twitter" class="sns-icon"></a>
           </li>
-          <li class="mr-3"><a href="https://github.com/s9iwork" target="_blank">
-              <img src="/img/Github.png" alt="github" class="sns-icon"></a>
+          <li class="mr-3"><a href="https://github.com/shinjiezumi" target="_blank">
+              <img src="/img/github.png" alt="github" class="sns-icon"></a>
           </li>
         </ul>
       </div>
