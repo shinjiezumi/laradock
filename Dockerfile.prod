@@ -15,10 +15,9 @@ COPY ./ /var/www/html/
 RUN php composer.phar install --no-dev
 RUN chmod -R a+w storage/ bootstrap/cache
 
-RUN npm install
-
 RUN chmod 777 ./webpack.mix.js
 RUN chmod 777 ./public/mix-manifest.json
 
+RUN npm install
 RUN npm run production
 
