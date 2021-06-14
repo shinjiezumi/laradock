@@ -7,16 +7,12 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
 RUN docker-php-ext-install pdo_mysql
 
 RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
-RUN apt-get install -y --no-install-recommends nodejs
-RUN npm install -g npm
+RUN sudo apt-get install -y --no-install-recommends nodejs
 
 COPY ./ /var/www/html/
 
 RUN php composer.phar install --no-dev
 RUN chmod -R a+w storage/ bootstrap/cache
-
-RUN chmod 777 ./webpack.mix.js
-RUN chmod 777 ./public/mix-manifest.json
 
 RUN npm install
 RUN npm run production
