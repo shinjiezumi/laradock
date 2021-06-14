@@ -8,7 +8,7 @@ RUN pecl install xdebug \
     && docker-php-ext-enable xdebug
 RUN apt-get install -y --no-install-recommends supervisor
 
-RUN curl -sL https://deb.nodesource.com/setup_16.x | bash -
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y --no-install-recommends nodejs && \
     npm install -g npm
 
