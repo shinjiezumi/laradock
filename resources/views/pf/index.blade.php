@@ -126,7 +126,8 @@
   </main>
   <footer class="footer d-flex justify-content-center">
     <div class="d-flex">
-      <div class="mr-3 copyright">&copy; {{date('Y')}} <a href="{{env('APP_URL')}}" class="copyright-link">shinjiezumi</a></div>
+      <div class="mr-3 copyright">&copy; {{date('Y')}} <a href="{{env('APP_URL')}}"
+                                                          class="copyright-link">shinjiezumi</a></div>
       <div>
         <ul class="d-flex list-unstyled sns-list">
           <li class="mr-3"><a href="https://twitter.com/shinjiezumi" target="_blank">
