@@ -11,7 +11,7 @@
     <link rel="shortcut icon" type="image/x-icon" href=""/>
   </head>
   <body data-spy="scroll" data-target="#navbar" data-offset="150">
-    <div id="app">
+    <div id="pf">
       @yield('content')
     </div>
     <script type="text/javascript" src="{{ mix('js/app.js') }}"></script>
