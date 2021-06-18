@@ -1,121 +1,27 @@
-.content {
-  margin-bottom: 5rem;
+.todoList {
+  margin-top: 3rem;
 }
 
-.header__h1 {
-  margin: 0;
-}
-
-.todo-add{
-  &__btn {
-    text-align: center;
-    padding: 2rem;
-  }
-  &__link{
-    //background-color: get-color($main-color);
-  }
-}
-
-.todo {
-  display: flex;
+.todoItem {
   padding: 2rem;
 
-  &-content {
-    &__title, &__body, &__limit {
-      display: flex;
-      margin-bottom: 1rem;
-    }
-
-    &__icon {
-      margin-right: 2rem;
-    }
+  &__content {
   }
 
-  &-btns {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    margin-left: 1rem;
-    padding-bottom: 1rem;
+  &__title {
+    font-weight: bold;
   }
 
-  &-delete {
-    margin-top: 1rem;
-
-    &__title, &__body, &__limit {
-      position: relative;
-      height: 2rem;
-      margin-bottom: 3rem;
-    }
-    &__icon {
-      position: absolute;
-      top: .5rem;
-      font-size: 2rem;
-    }
-
-    &__text {
-      position: absolute;
-      top: .5rem;
-      left: 4rem;
-      font-size: 1.1rem;
-    }
+  &__detailButton {
   }
 
-  &-add__btns, &-edit__btns, &-delete__btns {
+  &__buttonWrap {
     display: flex;
     justify-content: space-evenly;
-    text-align: center;
-  }
-
-  &-add, &-edit, &-delete {
-    &__execute-btn {
-      //background-color: get-color($main-color);
-    }
-    &__back-btn {
-      //background-color: get-color($color-grey);
-    }
   }
 }
 
-.breadcrumbs {
+.todoAddButton {
+  text-align: center;
   padding: 2rem;
-
-  &__item {
-    //color: get-color($main-color);
-
-    &:not(:last-child):after {
-      font-family: 'Material Icons';
-      content: '\E5CC';
-      vertical-align: middle;
-      margin-left: .5rem;
-    }
-  }
-}
-
-.footer {
-  display: flex;
-  justify-content: center;
-
-  &__wrap {
-    display: flex;
-    align-items: center;
-  }
-  &__copyright {
-    font-size: 1.2rem;
-    margin-right: .5rem;
-    height: 3rem;
-
-    &-link {
-      //color: get-color($color-white);
-    }
-  }
-  &__sns-list {
-    display: flex;
-    height: 3rem;
-  }
-  &__sns-icon {
-    //color: get-color($color-white);
-    font-size: 1.5rem;
-    margin-right: .5rem;
-  }
 }

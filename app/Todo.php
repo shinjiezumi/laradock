@@ -12,5 +12,7 @@ class Todo extends Model
         'limit'	=>	'date',
     ];
 
+    protected $dates = ['limit'];
+
     protected $guarded = ['id'];
 }

@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/', static function () {
     return view('top');
-});
+})->name('top');
 
 // 掲示板
 Route::resource('boards', 'BoardController');
@@ -30,7 +30,7 @@ Route::get('/pf', static function () {
 });
 
 // TODOアプリ
-Route::get('/todo', 'TodoController@index')->name('top');
+Route::get('/todo', 'TodoController@index')->name('todo');
 Route::get('/todo/add', 'TodoController@add')->name('add');
 Route::post('/todo/add', 'TodoController@post_add');
 Route::get('/todo/edit/{id}', 'TodoController@edit')->name('edit');
