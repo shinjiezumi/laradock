@@ -8,6 +8,11 @@
   <main id="todo">
     <div class="container">
       <div class="todoList">
+        @if (session('flash_message'))
+          <div class="alert alert-success">
+            {{session('flash_message')}}
+          </div>
+        @endif
         <table class="table">
           {{-- ヘッダー --}}
           <thead>
@@ -41,15 +46,19 @@
                     </button>
                     <div class="todoItem__editLink">
                       <a class="btn btn-outline-dark"
-                         href="{{ route('edit', ['id' => $todo['id']]) }}">
+                         href="{{ route('todos.edit', ['todo' => $todo->id]) }}">
                         <i class="fas fa-edit"></i>
                       </a>
                     </div>
                     <div class="todoItem__deleteLink">
-                      <a class="btn btn-outline-dark"
-                         href="{{ route('delete', ['id' => $todo['id']]) }}">
-                        <i class="fas fa-trash-alt"></i>
-                      </a>
+                      <form action="{{ action('TodoController@destroy', $todo->id) }}" method="post"
+                            style="display:inline">
+                        @csrf
+                        @method('DELETE')
+                        <button type="submit" class="btn btn-outline-dark">
+                          <i class="fas fa-trash"></i>
+                        </button>
+                      </form>
                     </div>
                   </div>
                 </td>
@@ -59,7 +68,7 @@
       </div>
       <div class="todoAddButton">
         <a class="btn btn-outline-dark"
-           href="{{ route('add') }}">
+           href="{{ route('todos.create') }}">
           <i class="fas fa-plus"></i>
         </a>
       </div>

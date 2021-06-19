@@ -6,7 +6,6 @@ use App\Http\Requests\TodoRequest;
 use App\Todo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -21,7 +20,7 @@ class TodoController extends Controller
     private const TODO_PER_PAGE = 5;
 
     /**
-     * トップページを表示する
+     * Todo一覧ページを表示する
      *
      * @return Factory|View
      */
@@ -32,74 +31,80 @@ class TodoController extends Controller
     }
 
     /**
-     * Todo追加ページを表示する
+     * Todo作成ページを作成する
      *
      * @return Factory|View
      */
-    public function add()
+    public function create()
     {
-        return view('todo.add');
+        return view('todo.create');
     }
 
     /**
-     * Todoを追加する
+     * Todoを作成する
      *
      * @param TodoRequest $request
      * @return RedirectResponse
      */
-    public function post_add(TodoRequest $request)
+    public function store(TodoRequest $request): RedirectResponse
     {
+        $data = $request->validated();
+        $data['limit'] = $this->convertDate($data['limit']);
+
         $todo = new Todo();
-        $todo->fill($request->all())->save();
-        return redirect()->route('top');
+        $todo->fill($data)->save();
+        return redirect()->route('todos.index')->with('flash_message', 'Todoを作成しました');
     }
 
     /**
-     * Todo編集ページを表示する
+     * Todo更新ページを表示する
      *
-     * @param Request $request
+     * @param int $todoId
      * @return Factory|View
      */
-    public function edit(Request $request)
+    public function edit(int $todoId)
     {
-        $todo = Todo::find(['id' => $request->id])->first();
+        $todo = Todo::find($todoId);
         return view('todo.edit', ['todo' => $todo]);
     }
 
     /**
-     * Todoを編集する
+     * Todoを更新する
      *
      * @param TodoRequest $request
+     * @param int $todoId
      * @return RedirectResponse
      */
-    public function post_edit(TodoRequest $request)
+    public function update(TodoRequest $request, int $todoId): RedirectResponse
     {
-        $todo = Todo::find($request->id);
-        $todo->fill($request->all())->save();
-        return redirect()->route('top');
-    }
+        $data = $request->validated();
+        $data['limit'] = $this->convertDate($data['limit']);
 
-    /**
-     * Todo削除ページを表示する
-     *
-     * @param Request $request
-     * @return Factory|View
-     */
-    public function delete(Request $request)
-    {
-        $todo = Todo::find($request->id);
-        return view('todo.delete', ['todo' => $todo]);
+        $todo = Todo::find($todoId);
+        $todo->fill($data)->save();
+        return redirect()->route('todos.index')->with('flash_message', 'Todoを更新しました');
     }
 
     /**
      * Todoを削除する
      *
-     * @param Request $request
+     * @param int $todoId
      * @return RedirectResponse
      */
-    public function post_delete(Request $request)
+    public function destroy(int $todoId): RedirectResponse
     {
-        Todo::find($request->id)->delete();
-        return redirect()->route('top');
+        Todo::find($todoId)->delete();
+        return redirect()->route('todos.index')->with('flash_message', 'Todoを削除しました');
+    }
+
+    /**
+     * DB保存のためにdatetime形式に変換する
+     *
+     * @param string $ymd
+     * @return string
+     */
+    private function convertDate(string $ymd): string
+    {
+        return date('Y-m-d 00:00:00', strtotime($ymd));
     }
 }

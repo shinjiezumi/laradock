@@ -26,7 +26,7 @@ class TodoRequest extends FormRequest
         return [
             'title' => 'required|max:30',
             'body'  => 'required|max:100',
-            'limit' => 'required|date_format:Y/m/d H:i',
+            'limit' => 'required|date_format:Y/m/d',
         ];
     }
 

@@ -30,13 +30,7 @@ Route::get('/pf', static function () {
 });
 
 // TODOアプリ
-Route::get('/todo', 'TodoController@index')->name('todo');
-Route::get('/todo/add', 'TodoController@add')->name('add');
-Route::post('/todo/add', 'TodoController@post_add');
-Route::get('/todo/edit/{id}', 'TodoController@edit')->name('edit');
-Route::post('/todo/edit/{id}', 'TodoController@post_edit');
-Route::get('/todo/delete/{id}', 'TodoController@delete')->name('delete');
-Route::post('/todo/delete/{id}', 'TodoController@post_delete');
+Route::resource('todos', 'TodoController');
 
 // 応用
 Route::get('/job', function () {
