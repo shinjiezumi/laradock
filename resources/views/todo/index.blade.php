@@ -32,7 +32,7 @@
                     <span class="todoItem__title">{{ $todo->title }}</span>
                   </div>
                   <div id="{{'detail-' . $todo->id}}" class="collapse">
-                    {{ $todo->body }}
+                    {!! nl2br(e($todo->body)) !!}
                   </div>
                 </td>
                 <td>
