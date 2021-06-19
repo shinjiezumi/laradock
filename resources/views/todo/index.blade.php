@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('title', 'Todo一覧|Laradock')
+@section('title', \App\Helpers\ViewHelper::generateTitle('Todo一覧'))
 
 @section('content')
   {{-- // TODO --}}
