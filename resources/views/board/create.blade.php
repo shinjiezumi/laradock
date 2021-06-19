@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', \App\Helpers\ViewHelper::generateTitle('掲示板作成'))
+
 @section('content')
   <main class="container">
     <div class="d-flex align-items-center mt-5">

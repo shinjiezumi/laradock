@@ -1,5 +1,7 @@
 @extends('layouts.app')
 
+@section('title', '掲示板詳細|Laradock')
+
 @section('content')
   <main class="container">
     <div class="d-flex align-items-center mt-4 mb-4">

@@ -1,6 +1,6 @@
 @extends('layouts.app')
 
-@section('name', 'Todoリスト')
+@section('title', 'Todo一覧|Laradock')
 
 @section('content')
   {{-- // TODO --}}
