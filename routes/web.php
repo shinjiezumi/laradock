@@ -17,7 +17,7 @@ Auth::routes();
 
 Route::get('/', static function () {
     return view('top');
-});
+})->name('top');
 
 // 掲示板
 Route::resource('boards', 'BoardController');
@@ -29,7 +29,8 @@ Route::get('/pf', static function () {
     return view('pf/index');
 });
 
-
+// TODOアプリ
+Route::resource('todos', 'TodoController');
 
 // 応用
 Route::get('/job', function () {

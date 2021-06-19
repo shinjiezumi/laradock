@@ -9,7 +9,6 @@ RUN pecl install xdebug \
 RUN apt-get install -y --no-install-recommends supervisor
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
-RUN apt-get install -y --no-install-recommends nodejs && \
-    npm install -g npm
+RUN apt-get install -y --no-install-recommends nodejs
 
 COPY ./supervisor/* /etc/supervisor/conf.d/

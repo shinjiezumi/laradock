@@ -1,4 +1,4 @@
-require('./vendor/jquery.circliful.min')
+require('./vendor/jquery.circliful.min');
 
 const PORTFOLIO = {};
 PORTFOLIO.DATA_CONTROLLER = {};
@@ -10,12 +10,12 @@ PORTFOLIO.DATA_CONTROLLER = {
   isHtmlCssCircleRendered: false,
   isJsCircleRendered: false,
 
-  init: function () {
+  init() {
     this.setParameters();
     this.bindEvents();
     this.initialize();
   },
-  setParameters: function () {
+  setParameters() {
     this.$htmlBody = $('html, body');
     this.$siteLogoContainer = $('.site-logo-container');
     this.$globalNavi = $('.global-navi');
@@ -25,21 +25,21 @@ PORTFOLIO.DATA_CONTROLLER = {
     this.$skillHtmlcssCircle = $('#htmlcss-circle');
     this.$skillJsCircle = $('#js-circle');
   },
-  bindEvents: function () {
+  bindEvents() {
     $(document).on('click', '.pagetop', $.proxy(this.handlePageTopClick, null, this));
     $(window).scroll($.proxy(this.handlePageScroll, null, this));
   },
-  initialize: function () {
+  initialize() {
   },
-  handlePageScroll: function (parent, event) {
-    let scrollTop = $(this).scrollTop();
-    let scrollBottom = scrollTop + parent.windowHeight;
+  handlePageScroll(parent) {
+    const scrollTop = $(this).scrollTop();
+    const scrollBottom = scrollTop + parent.windowHeight;
 
     // トップメニュー
     if (scrollTop > parent.$siteLogoContainer.height()) {
-      parent.$globalNavi.addClass('fixed-top')
+      parent.$globalNavi.addClass('fixed-top');
     } else {
-      parent.$globalNavi.removeClass('fixed-top')
+      parent.$globalNavi.removeClass('fixed-top');
     }
 
     // ページトップボタン
@@ -57,8 +57,9 @@ PORTFOLIO.DATA_CONTROLLER = {
         animationStep: 5,
         foregroundBorderWidth: 5,
         backgroundBorderWidth: 8,
-        percent: PORTFOLIO.DEF.skillPhp
+        percent: PORTFOLIO.DEF.skillPhp,
       });
+      // eslint-disable-next-line no-param-reassign
       parent.isPhpCircleRendered = true;
     }
 
@@ -68,8 +69,9 @@ PORTFOLIO.DATA_CONTROLLER = {
         animationStep: 5,
         foregroundBorderWidth: 5,
         backgroundBorderWidth: 8,
-        percent: PORTFOLIO.DEF.skillInfra
+        percent: PORTFOLIO.DEF.skillInfra,
       });
+      // eslint-disable-next-line no-param-reassign
       parent.isInfraCircleRendered = true;
     }
 
@@ -79,8 +81,9 @@ PORTFOLIO.DATA_CONTROLLER = {
         animationStep: 5,
         foregroundBorderWidth: 5,
         backgroundBorderWidth: 8,
-        percent: PORTFOLIO.DEF.skillHtmlcss
+        percent: PORTFOLIO.DEF.skillHtmlcss,
       });
+      // eslint-disable-next-line no-param-reassign
       parent.isHtmlCssCircleRendered = true;
     }
 
@@ -90,17 +93,18 @@ PORTFOLIO.DATA_CONTROLLER = {
         animationStep: 5,
         foregroundBorderWidth: 5,
         backgroundBorderWidth: 8,
-        percent: PORTFOLIO.DEF.skillJs
+        percent: PORTFOLIO.DEF.skillJs,
       });
+      // eslint-disable-next-line no-param-reassign
       parent.isJsCircleRendered = true;
     }
   },
-  handlePageTopClick: function (parent, event) {
-    parent.$htmlBody.animate({scrollTop: 0}, 500, 'swing');
+  handlePageTopClick(parent) {
+    parent.$htmlBody.animate({ scrollTop: 0 }, 500, 'swing');
   },
 };
 
-$(function () {
+$(() => {
   PORTFOLIO.DATA_CONTROLLER.init();
 });
 
@@ -110,4 +114,4 @@ PORTFOLIO.DEF = {
   skillInfra: 20,
   skillHtmlcss: 40,
   skillJs: 40,
-}
+};

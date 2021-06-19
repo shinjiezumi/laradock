@@ -97,7 +97,7 @@ class BoardController extends Controller
      *
      * @param BoardRequest $request
      * @param int $boardId
-     * @return void
+     * @return Application|Redirector|RedirectResponse
      * @throws \Exception
      */
     public function update(BoardRequest $request, int $boardId)
@@ -106,8 +106,11 @@ class BoardController extends Controller
 
         DB::beginTransaction();
         try {
-            $tags = $data['tags'];
-            unset($data['tags']);
+            $tags = [];
+            if (isset($data['tags'])) {
+                $tags = $data['tags'];
+                unset($data['tags']);
+            }
 
             $board = Board::find($boardId);
             $board->fill($data)->save();
@@ -119,7 +122,6 @@ class BoardController extends Controller
             Log::error($e->getMessage());
             DB::rollBack();
         }
-
     }
 
     /**

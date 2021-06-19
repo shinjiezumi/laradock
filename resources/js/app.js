@@ -4,6 +4,7 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
+require('./vendor/fontawesome');
 require('./bootstrap');
 require('./pf/main');
 

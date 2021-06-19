@@ -1,0 +1,27 @@
+.todoList {
+  margin-top: 3rem;
+}
+
+.todoItem {
+  padding: 2rem;
+
+  &__content {
+  }
+
+  &__title {
+    font-weight: bold;
+  }
+
+  &__detailButton {
+  }
+
+  &__buttonWrap {
+    display: flex;
+    justify-content: space-evenly;
+  }
+}
+
+.todoAddButton {
+  text-align: center;
+  padding: 2rem;
+}
