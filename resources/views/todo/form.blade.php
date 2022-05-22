@@ -1,6 +1,6 @@
 <form
-  action="{{Route::currentRouteName() === 'todos.create' ? action('TodoController@store') : action('TodoController@update', ['todo' => $todo->id]) }}"
-  method="POST">
+    action="{{Route::currentRouteName() === 'todos.create' ? action('TodoController@store') : action('TodoController@update', ['todo' => $todo->id]) }}"
+    method="POST">
   @csrf
   @if (Route::currentRouteName() === 'todos.edit')
     @method('PUT')
@@ -18,7 +18,7 @@
   <div class="form-group">
     <span>期限</span>
     <input class="form-control" type="text" id="limit" name="limit"
-           value="{{ old('limit') ?? isset($todo->limit) ? date('Y/m/d', strtotime($todo->limit)) : ''}}"/>
+           value="{{ old('limit') ?? (isset($todo->limit) ? date('Y/m/d', strtotime($todo->limit)) : '')}}"/>
   </div>
   <div class="form-group text-center">
     <input class="btn btn-secondary" type="submit" value="保存">
