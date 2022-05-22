@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\DDD\Todo\Application\ITodoService;
+use App\DDD\Todo\Application\TodoGetCommand;
 use App\Http\Requests\TodoRequest;
 use App\Todo;
 use Illuminate\Contracts\View\Factory;
@@ -20,13 +22,25 @@ class TodoController extends Controller
     private const TODO_PER_PAGE = 5;
 
     /**
+     * @var ITodoService
+     */
+    private $todoService;
+
+    public function __construct(ITodoService $todoService)
+    {
+        $this->todoService = $todoService;
+    }
+
+    /**
      * Todo一覧ページを表示する
      *
      * @return Factory|View
      */
     public function index()
     {
-        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
+//        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
+        $command = new TodoGetCommand(self::TODO_PER_PAGE);
+        $todos = $this->todoService->get($command);
         return view('todo.index', ['todos' => $todos]);
     }
 
