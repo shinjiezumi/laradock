@@ -8,6 +8,7 @@ use App\Http\Requests\TodoRequest;
 use App\Todo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 /**
@@ -36,10 +37,10 @@ class TodoController extends Controller
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
 //        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
-        $command = new TodoGetCommand(self::TODO_PER_PAGE);
+        $command = new TodoGetCommand($request->get('page', 1));
         $todos = $this->todoService->get($command);
         return view('todo.index', ['todos' => $todos]);
     }
