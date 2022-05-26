@@ -18,7 +18,7 @@ class Todo
      * @param string|null $limit
      * @return array
      */
-    public function __construct(?string $title, ?string $body, ?string $limit): array
+    public function __construct(?string $title, ?string $body, ?string $limit)
     {
         $errors = [];
         if ($title === null) {
