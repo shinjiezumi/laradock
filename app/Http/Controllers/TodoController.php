@@ -49,7 +49,6 @@ class TodoController extends Controller
     public function store(TodoRequest $request): RedirectResponse
     {
         $data = $request->validated();
-        $data['limit'] = $this->convertDate($data['limit']);
 
         $todo = new Todo();
         $todo->fill($data)->save();
@@ -78,7 +77,6 @@ class TodoController extends Controller
     public function update(TodoRequest $request, int $todoId): RedirectResponse
     {
         $data = $request->validated();
-        $data['limit'] = $this->convertDate($data['limit']);
 
         $todo = Todo::find($todoId);
         $todo->fill($data)->save();
@@ -95,16 +93,5 @@ class TodoController extends Controller
     {
         Todo::find($todoId)->delete();
         return redirect()->route('todos.index')->with('flash_message', 'Todoを削除しました');
-    }
-
-    /**
-     * DB保存のためにdatetime形式に変換する
-     *
-     * @param string $ymd
-     * @return string
-     */
-    private function convertDate(string $ymd): string
-    {
-        return date('Y-m-d 00:00:00', strtotime($ymd));
     }
 }
