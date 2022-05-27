@@ -26,7 +26,7 @@ class ChangeTodosLimitColumnType extends Migration
     public function down()
     {
         Schema::table('todos', function (Blueprint $table) {
-            $table->timestamp('limit')->comment('期限')->change();
+            $table->datetime('limit')->default(null)->comment('期限')->change();
         });
     }
 }
