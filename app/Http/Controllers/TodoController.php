@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DDD\Todo\Application\ITodoService;
+use App\DDD\Todo\Application\TodoGetCommand;
 use App\DDD\Todo\Application\TodoGetListCommand;
 use App\DDD\Todo\Application\TodoStoreCommand;
 use App\Http\Requests\TodoRequest;
@@ -94,7 +95,11 @@ class TodoController extends Controller
      */
     public function edit(int $todoId)
     {
-        $todo = Todo::find($todoId);
+//        $todo = Todo::find($todoId);
+
+        $command = new TodoGetCommand($todoId);
+        $todo = $this->todoService->get($command);
+
         return view('todo.edit', ['todo' => $todo]);
     }
 

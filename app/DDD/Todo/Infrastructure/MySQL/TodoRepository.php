@@ -20,6 +20,15 @@ class TodoRepository implements ITodoRepository
     }
 
     /**
+     * @param int $id
+     * @return object|null
+     */
+    public function findById(int $id): ?object
+    {
+        return TodoData::find($id);
+    }
+
+    /**
      * @param Todo $todo
      */
     public function save(Todo $todo)

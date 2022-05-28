@@ -2,6 +2,7 @@
 
 namespace App\DDD\Todo\Application;
 
+use App\DDD\Exceptions\ResourceNotFoundException;
 use App\DDD\Todo\Domain\Model\ITodoRepository;
 use App\DDD\Todo\Domain\Model\Todo;
 
@@ -36,6 +37,21 @@ class TodoService implements ITodoService
     {
         $todos = $this->todoRepository->find();
         return $todos->paginate(self::TODO_PER_PAGE, ['*'], 'page', $command->getPage());
+    }
+
+    /**
+     * @param TodoGetCommand $command
+     * @return object
+     * @throws ResourceNotFoundException
+     */
+    public function get(TodoGetCommand $command): object
+    {
+        $todo = $this->todoRepository->findById($command->getId());
+        if ($todo === null) {
+            throw new ResourceNotFoundException();
+        }
+
+        return $todo;
     }
 
     /**
