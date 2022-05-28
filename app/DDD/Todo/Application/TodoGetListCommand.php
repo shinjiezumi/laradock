@@ -5,7 +5,7 @@ namespace App\DDD\Todo\Application;
 /**
  *
  */
-class TodoGetCommand
+class TodoGetListCommand
 {
     /**
      * @var int

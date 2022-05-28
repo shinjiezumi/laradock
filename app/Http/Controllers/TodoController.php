@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\DDD\Todo\Application\ITodoService;
-use App\DDD\Todo\Application\TodoGetCommand;
+use App\DDD\Todo\Application\TodoGetListCommand;
 use App\DDD\Todo\Application\TodoStoreCommand;
 use App\Http\Requests\TodoRequest;
 use App\Todo;
@@ -43,8 +43,8 @@ class TodoController extends Controller
     {
 //        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
 
-        $command = new TodoGetCommand($request->get('page', 1));
-        $todos = $this->todoService->get($command);
+        $command = new TodoGetListCommand($request->get('page', 1));
+        $todos = $this->todoService->getList($command);
 
         return view('todo.index', ['todos' => $todos]);
     }

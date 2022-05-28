@@ -29,10 +29,10 @@ class TodoService implements ITodoService
     }
 
     /**
-     * @param TodoGetCommand $command
+     * @param TodoGetListCommand $command
      * @return mixed
      */
-    public function get(TodoGetCommand $command)
+    public function getList(TodoGetListCommand $command)
     {
         $todos = $this->todoRepository->find();
         return $todos->paginate(self::TODO_PER_PAGE, ['*'], 'page', $command->getPage());
