@@ -21,11 +21,6 @@ use Illuminate\View\View;
 class TodoController extends Controller
 {
     /**
-     * @var int 1ページ辺りのTodo表示数
-     */
-    private const TODO_PER_PAGE = 5;
-
-    /**
      * @var ITodoService
      */
     private $todoService;
@@ -42,8 +37,6 @@ class TodoController extends Controller
      */
     public function index(Request $request)
     {
-//        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
-
         $command = new TodoGetListCommand($request->get('page', 1));
         $todos = $this->todoService->getList($command);
 
@@ -69,11 +62,6 @@ class TodoController extends Controller
      */
     public function store(Request $request): RedirectResponse
     {
-//        $data = $request->validated();
-//
-//        $todo = new Todo();
-//        $todo->fill($data)->save();
-
         $title = $request->get('title');
         $body = $request->get('body');
         $limit = $request->get('limit');
@@ -95,8 +83,6 @@ class TodoController extends Controller
      */
     public function edit(int $todoId)
     {
-//        $todo = Todo::find($todoId);
-
         $command = new TodoGetCommand($todoId);
         $todo = $this->todoService->get($command);
 
