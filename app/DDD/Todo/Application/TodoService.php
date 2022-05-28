@@ -3,6 +3,7 @@
 namespace App\DDD\Todo\Application;
 
 use App\DDD\Todo\Domain\Model\ITodoRepository;
+use App\DDD\Todo\Domain\Model\Todo;
 
 /**
  *
@@ -29,11 +30,26 @@ class TodoService implements ITodoService
 
     /**
      * @param TodoGetCommand $command
-     * @return void
+     * @return mixed
      */
     public function get(TodoGetCommand $command)
     {
         $todos = $this->todoRepository->find();
         return $todos->paginate(self::TODO_PER_PAGE, ['*'], 'page', $command->getPage());
+    }
+
+    /**
+     * @param TodoStoreCommand $command
+     * @return array|mixed
+     */
+    public function store(TodoStoreCommand $command)
+    {
+        list($todo, $errors) = Todo::construct($command->getTitle(), $command->getBody(), $command->getLimit());
+        if (count($errors) !== 0) {
+            return $errors;
+        }
+
+        $this->todoRepository->save($todo);
+        return [];
     }
 }

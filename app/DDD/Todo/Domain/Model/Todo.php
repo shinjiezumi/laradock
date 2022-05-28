@@ -2,6 +2,8 @@
 
 namespace App\DDD\Todo\Domain\Model;
 
+use DateTime;
+
 /**
  * Todo TODOモデル
  */
@@ -13,12 +15,19 @@ class Todo
     private $limit;
 
     /**
+     *
+     */
+    private function __construct()
+    {
+    }
+
+    /**
      * @param string|null $title
      * @param string|null $body
      * @param string|null $limit
      * @return array
      */
-    public function __construct(?string $title, ?string $body, ?string $limit)
+    public static function construct(?string $title, ?string $body, ?string $limit): array
     {
         $errors = [];
         if ($title === null) {
@@ -35,20 +44,34 @@ class Todo
 
         if ($limit === null) {
             $errors['limit'] = '期限を入力してください';
-        } else if (!strtotime("Y/m/d", $limit)) {
+        }
+
+        $limitDate = DateTime::createFromFormat("Y/m/d", $limit);
+        if (!$limitDate) {
             $errors['limit'] = '期限はY/m/d形式で入力してください';
         }
 
         if (count($errors) !== 0) {
-            return $errors;
+            return [null, $errors];
         }
 
-        $this->title = $title;
-        $this->body = $body;
-        $this->limit = \DateTime::createFromFormat("Y/m/d", $limit);
+        $todo = new Todo();
+        $todo->title = $title;
+        $todo->body = $body;
+        $todo->limit = $limitDate;
 
-        return [];
+        return [$todo, $errors];
     }
 
-
+    /**
+     * @return array
+     */
+    public function toArray(): array
+    {
+        return [
+            'title' => $this->title,
+            'body' => $this->body,
+            'limit' => $this->limit,
+        ];
+    }
 }
