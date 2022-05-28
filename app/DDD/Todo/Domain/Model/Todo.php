@@ -2,8 +2,6 @@
 
 namespace App\DDD\Todo\Domain\Model;
 
-use DateTime;
-
 /**
  * Todo TODOモデル
  */
@@ -14,64 +12,41 @@ class Todo
     private $body;
     private $limit;
 
-    /**
-     *
-     */
     private function __construct()
     {
     }
 
-    /**
-     * @param string|null $title
-     * @param string|null $body
-     * @param string|null $limit
-     * @return array
-     */
-    public static function construct(?string $title, ?string $body, ?string $limit): array
+    public static function construct(TodoTitle $title, TodoBody $body, TodoLimit $limit): Todo
     {
-        $errors = [];
-        if ($title === null) {
-            $errors['title'] = 'タイトルを入力してください';
-        } else if (!(mb_strlen($title) <= 30)) {
-            $errors['title'] = 'タイトルは30文字以下で入力してください';
-        }
-
-        if ($body === null) {
-            $errors['body'] = '詳細を入力してください';
-        } else if (!(mb_strlen($body) <= 100)) {
-            $errors['body'] = '詳細は100文字以下で入力してください';
-        }
-
-        if ($limit === null) {
-            $errors['limit'] = '期限を入力してください';
-        }
-
-        $limitDate = DateTime::createFromFormat("Y/m/d", $limit);
-        if (!$limitDate) {
-            $errors['limit'] = '期限はY/m/d形式で入力してください';
-        }
-
-        if (count($errors) !== 0) {
-            return [null, $errors];
-        }
-
         $todo = new Todo();
-        $todo->title = $title;
-        $todo->body = $body;
-        $todo->limit = $limitDate;
+        $todo->updateTitle($title);
+        $todo->updateBody($body);
+        $todo->updateLimit($limit);
 
-        return [$todo, $errors];
+        return $todo;
     }
 
-    /**
-     * @return array
-     */
+    public function updateTitle(TodoTitle $title)
+    {
+        $this->title = $title;
+    }
+
+    public function updateBody(TodoBody $body)
+    {
+        $this->body = $body;
+    }
+
+    public function updateLimit(TodoLimit $limit)
+    {
+        $this->limit = $limit;
+    }
+
     public function toArray(): array
     {
         return [
-            'title' => $this->title,
-            'body' => $this->body,
-            'limit' => $this->limit,
+            'title' => $this->title->toString(),
+            'body' => $this->body->toString(),
+            'limit' => $this->limit->toString(),
         ];
     }
 }

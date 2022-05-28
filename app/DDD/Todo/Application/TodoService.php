@@ -5,6 +5,10 @@ namespace App\DDD\Todo\Application;
 use App\DDD\Exceptions\ResourceNotFoundException;
 use App\DDD\Todo\Domain\Model\ITodoRepository;
 use App\DDD\Todo\Domain\Model\Todo;
+use App\DDD\Todo\Domain\Model\TodoBody;
+use App\DDD\Todo\Domain\Model\TodoLimit;
+use App\DDD\Todo\Domain\Model\TodoTitle;
+use Illuminate\Validation\ValidationException;
 
 /**
  *
@@ -56,16 +60,15 @@ class TodoService implements ITodoService
 
     /**
      * @param TodoStoreCommand $command
-     * @return array|mixed
+     * @throws ValidationException
      */
     public function store(TodoStoreCommand $command)
     {
-        list($todo, $errors) = Todo::construct($command->getTitle(), $command->getBody(), $command->getLimit());
-        if (count($errors) !== 0) {
-            return $errors;
-        }
+        $title = new TodoTitle($command->getTitle());
+        $body = new TodoBody($command->getBody());
+        $limit = new TodoLimit($command->getLimit());
+        $todo = Todo::construct($title, $body, $limit);
 
         $this->todoRepository->save($todo);
-        return [];
     }
 }

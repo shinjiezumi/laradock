@@ -23,11 +23,11 @@ class TodoStoreCommand
     private $limit;
 
     /**
-     * @param string|null $title
-     * @param string|null $body
-     * @param string|null $limit
+     * @param string $title
+     * @param string $body
+     * @param string $limit
      */
-    public function __construct(?string $title, ?string $body, ?string $limit)
+    public function __construct(string $title, string $body, string $limit)
     {
         $this->title = $title;
         $this->body = $body;

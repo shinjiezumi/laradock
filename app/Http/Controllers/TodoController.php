@@ -6,7 +6,7 @@ use App\DDD\Todo\Application\ITodoService;
 use App\DDD\Todo\Application\TodoGetCommand;
 use App\DDD\Todo\Application\TodoGetListCommand;
 use App\DDD\Todo\Application\TodoStoreCommand;
-use App\Http\Requests\TodoRequest;
+use App\DDD\Todo\Application\TodoUpdateCommand;
 use App\Todo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -58,19 +58,15 @@ class TodoController extends Controller
      *
      * @param Request $request
      * @return RedirectResponse
-     * @throws ValidationException
      */
     public function store(Request $request): RedirectResponse
     {
-        $title = $request->get('title');
-        $body = $request->get('body');
-        $limit = $request->get('limit');
+        $title = $request->get('title',) ?? '';
+        $body = $request->get('body',) ?? '';
+        $limit = $request->get('limit',) ?? '';
         $command = new TodoStoreCommand($title, $body, $limit);
 
-        $errors = $this->todoService->store($command);
-        if (count($errors) !== 0) {
-            throw ValidationException::withMessages($errors);
-        }
+        $this->todoService->store($command);
 
         return redirect()->route('todos.index')->with('flash_message', 'Todoを作成しました');
     }
@@ -92,16 +88,21 @@ class TodoController extends Controller
     /**
      * Todoを更新する
      *
-     * @param TodoRequest $request
+     * @param Request $request
      * @param int $todoId
      * @return RedirectResponse
      */
-    public function update(TodoRequest $request, int $todoId): RedirectResponse
+    public function update(Request $request, int $todoId): RedirectResponse
     {
-        $data = $request->validated();
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $limit = $request->get('limit');
+        $command = new TodoUpdateCommand($todoId, $title, $body, $limit);
 
-        $todo = Todo::find($todoId);
-        $todo->fill($data)->save();
+        $errors = $this->todoService->update($command);
+        if (count($errors) !== 0) {
+            throw ValidationException::withMessages($errors);
+        }
         return redirect()->route('todos.index')->with('flash_message', 'Todoを更新しました');
     }
 
