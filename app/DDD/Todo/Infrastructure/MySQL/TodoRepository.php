@@ -4,6 +4,7 @@ namespace App\DDD\Todo\Infrastructure\MySQL;
 
 use App\DDD\Todo\Domain\Model\ITodoRepository;
 use App\DDD\Todo\Domain\Model\Todo;
+use App\DDD\Todo\Domain\Model\TodoId;
 use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
 
 /**
@@ -45,5 +46,13 @@ class TodoRepository implements ITodoRepository
         $todoData = TodoData::find($todo->getId());
         $todoData->fill($todo->toArray());
         $todoData->save();
+    }
+
+    /**
+     * @param TodoId $id
+     */
+    public function delete(TodoId $id)
+    {
+        TodoData::find($id->getId())->delete();
     }
 }

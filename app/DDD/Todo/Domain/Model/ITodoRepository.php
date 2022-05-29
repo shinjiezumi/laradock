@@ -28,4 +28,9 @@ interface ITodoRepository
      * @param Todo $todo
      */
     public function update(Todo $todo);
+
+    /**
+     * @param TodoId $id
+     */
+    public function delete(TodoId $id);
 }

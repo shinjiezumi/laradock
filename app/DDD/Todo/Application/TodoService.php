@@ -6,6 +6,7 @@ use App\DDD\Exceptions\ResourceNotFoundException;
 use App\DDD\Todo\Domain\Model\ITodoRepository;
 use App\DDD\Todo\Domain\Model\Todo;
 use App\DDD\Todo\Domain\Model\TodoBody;
+use App\DDD\Todo\Domain\Model\TodoId;
 use App\DDD\Todo\Domain\Model\TodoLimit;
 use App\DDD\Todo\Domain\Model\TodoTitle;
 use Illuminate\Validation\ValidationException;
@@ -94,5 +95,15 @@ class TodoService implements ITodoService
         $todo->updateLimit($limit);
 
         $this->todoRepository->update($todo);
+    }
+
+    public function delete(TodoDeleteCommand $command)
+    {
+        $todoData = $this->todoRepository->findById($command->getId());
+        if ($todoData === null) {
+            throw new ResourceNotFoundException();
+        }
+
+        $this->todoRepository->delete(new TodoId($command->getId()));
     }
 }

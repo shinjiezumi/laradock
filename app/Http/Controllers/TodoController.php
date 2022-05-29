@@ -3,11 +3,11 @@
 namespace App\Http\Controllers;
 
 use App\DDD\Todo\Application\ITodoService;
+use App\DDD\Todo\Application\TodoDeleteCommand;
 use App\DDD\Todo\Application\TodoGetCommand;
 use App\DDD\Todo\Application\TodoGetListCommand;
 use App\DDD\Todo\Application\TodoStoreCommand;
 use App\DDD\Todo\Application\TodoUpdateCommand;
-use App\Todo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -111,7 +111,10 @@ class TodoController extends Controller
      */
     public function destroy(int $todoId): RedirectResponse
     {
-        Todo::find($todoId)->delete();
+        $command = new TodoDeleteCommand($todoId);
+
+        $this->todoService->delete($command);
+
         return redirect()->route('todos.index')->with('flash_message', 'Todoを削除しました');
     }
 }

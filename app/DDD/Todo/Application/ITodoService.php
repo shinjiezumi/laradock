@@ -14,4 +14,6 @@ interface ITodoService
     public function store(TodoStoreCommand $command);
 
     public function update(TodoUpdateCommand $command);
+
+    public function delete(TodoDeleteCommand $command);
 }
