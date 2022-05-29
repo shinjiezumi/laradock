@@ -69,6 +69,30 @@ class TodoService implements ITodoService
         $limit = new TodoLimit($command->getLimit());
         $todo = Todo::construct($title, $body, $limit);
 
-        $this->todoRepository->save($todo);
+        $this->todoRepository->create($todo);
+    }
+
+    /**
+     * @param TodoUpdateCommand $command
+     * @return void
+     * @throws ValidationException
+     * @throws ResourceNotFoundException
+     */
+    public function update(TodoUpdateCommand $command)
+    {
+        $todoData = $this->todoRepository->findById($command->getId());
+        if ($todoData === null) {
+            throw new ResourceNotFoundException();
+        }
+
+        $todo = Todo::constructFromDataModel($todoData);
+        $title = new TodoTitle($command->getTitle());
+        $body = new TodoBody($command->getBody());
+        $limit = new TodoLimit($command->getLimit());
+        $todo->updateTitle($title);
+        $todo->updateBody($body);
+        $todo->updateLimit($limit);
+
+        $this->todoRepository->update($todo);
     }
 }

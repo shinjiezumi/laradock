@@ -2,6 +2,9 @@
 
 namespace App\DDD\Todo\Domain\Model;
 
+use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
+
+
 /**
  * Todo TODOモデル
  */
@@ -26,6 +29,17 @@ class Todo
         return $todo;
     }
 
+    public static function constructFromDataModel(TodoData $todoData): Todo
+    {
+        $todo = new Todo();
+        $todo->id = $todoData->id;
+        $todo->title = $todoData->title;
+        $todo->body = $todoData->body;
+        $todo->limit = $todoData->limit;
+
+        return $todo;
+    }
+
     public function updateTitle(TodoTitle $title)
     {
         $this->title = $title;
@@ -39,6 +53,11 @@ class Todo
     public function updateLimit(TodoLimit $limit)
     {
         $this->limit = $limit;
+    }
+
+    public function getId(): int
+    {
+        return $this->id;
     }
 
     public function toArray(): array

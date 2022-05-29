@@ -2,6 +2,8 @@
 
 namespace App\DDD\Todo\Domain\Model;
 
+use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
+
 /**
  *
  */
@@ -14,13 +16,16 @@ interface ITodoRepository
 
     /**
      * @param int $id
-     * @return object
      */
-    public function findById(int $id): ?object;
+    public function findById(int $id): ?TodoData;
 
     /**
      * @param Todo $todo
-     * @return mixed
      */
-    public function save(Todo $todo);
+    public function create(Todo $todo);
+
+    /**
+     * @param Todo $todo
+     */
+    public function update(Todo $todo);
 }

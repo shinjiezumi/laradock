@@ -11,7 +11,6 @@ use App\Todo;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 /**
@@ -99,10 +98,8 @@ class TodoController extends Controller
         $limit = $request->get('limit');
         $command = new TodoUpdateCommand($todoId, $title, $body, $limit);
 
-        $errors = $this->todoService->update($command);
-        if (count($errors) !== 0) {
-            throw ValidationException::withMessages($errors);
-        }
+        $this->todoService->update($command);
+
         return redirect()->route('todos.index')->with('flash_message', 'Todoを更新しました');
     }
 
