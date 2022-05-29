@@ -50,6 +50,7 @@ class TodoRepository implements ITodoRepository
 
     /**
      * @param TodoId $id
+     * @throws \Exception
      */
     public function delete(TodoId $id)
     {
