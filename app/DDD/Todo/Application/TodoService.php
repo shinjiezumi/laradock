@@ -12,7 +12,7 @@ use App\DDD\Todo\Domain\Model\TodoTitle;
 use Illuminate\Validation\ValidationException;
 
 /**
- *
+ * TodoService Todoサービス
  */
 class TodoService implements ITodoService
 {
@@ -63,7 +63,7 @@ class TodoService implements ITodoService
      * @param TodoStoreCommand $command
      * @throws ValidationException
      */
-    public function store(TodoStoreCommand $command)
+    public function store(TodoStoreCommand $command): void
     {
         $title = new TodoTitle($command->getTitle());
         $body = new TodoBody($command->getBody());
@@ -79,7 +79,7 @@ class TodoService implements ITodoService
      * @throws ValidationException
      * @throws ResourceNotFoundException
      */
-    public function update(TodoUpdateCommand $command)
+    public function update(TodoUpdateCommand $command): void
     {
         $todoData = $this->todoRepository->findById($command->getId());
         if ($todoData === null) {
@@ -97,7 +97,7 @@ class TodoService implements ITodoService
         $this->todoRepository->update($todo);
     }
 
-    public function delete(TodoDeleteCommand $command)
+    public function delete(TodoDeleteCommand $command): void
     {
         $todoData = $this->todoRepository->findById($command->getId());
         if ($todoData === null) {

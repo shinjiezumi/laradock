@@ -3,17 +3,37 @@
 namespace App\DDD\Todo\Application;
 
 /**
- *
+ * ITodoService Todoサービスインターフェース
  */
 interface ITodoService
 {
+    /**
+     * @param TodoGetListCommand $command
+     * @return mixed
+     */
     public function getList(TodoGetListCommand $command);
 
+    /**
+     * @param TodoGetCommand $command
+     * @return mixed
+     */
     public function get(TodoGetCommand $command);
 
-    public function store(TodoStoreCommand $command);
+    /**
+     * @param TodoStoreCommand $command
+     * @return void
+     */
+    public function store(TodoStoreCommand $command): void;
 
-    public function update(TodoUpdateCommand $command);
+    /**
+     * @param TodoUpdateCommand $command
+     * @return void
+     */
+    public function update(TodoUpdateCommand $command): void;
 
-    public function delete(TodoDeleteCommand $command);
+    /**
+     * @param TodoDeleteCommand $command
+     * @return void
+     */
+    public function delete(TodoDeleteCommand $command): void;
 }
