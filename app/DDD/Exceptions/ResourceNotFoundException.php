@@ -7,8 +7,10 @@ namespace App\DDD\Exceptions;
  */
 class ResourceNotFoundException extends \Exception
 {
-    public function __construct()
+    const MESSAGE = 'リソースが見つかりませんでした';
+
+    public function __construct(string $message = self::MESSAGE)
     {
-        parent::__construct('リソースが見つかりませんでした', 404, null);
+        parent::__construct($message, 404, null);
     }
 }

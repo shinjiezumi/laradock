@@ -97,6 +97,11 @@ class TodoService implements ITodoService
         $this->todoRepository->update($todo);
     }
 
+    /**
+     * @param TodoDeleteCommand $command
+     * @return void
+     * @throws ResourceNotFoundException
+     */
     public function delete(TodoDeleteCommand $command): void
     {
         $todoData = $this->todoRepository->findById($command->getId());

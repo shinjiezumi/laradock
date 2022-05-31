@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\DDD\Exceptions\ResourceNotFoundException;
 use App\DDD\Todo\Application\ITodoService;
 use App\DDD\Todo\Application\TodoDeleteCommand;
 use App\DDD\Todo\Application\TodoGetCommand;
@@ -11,6 +12,7 @@ use App\DDD\Todo\Application\TodoUpdateCommand;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
 /**
@@ -79,7 +81,12 @@ class TodoController extends Controller
     public function edit(int $todoId)
     {
         $command = new TodoGetCommand($todoId);
-        $todo = $this->todoService->get($command);
+
+        try {
+            $todo = $this->todoService->get($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
 
         return view('todo.edit', ['todo' => $todo]);
     }
@@ -90,6 +97,7 @@ class TodoController extends Controller
      * @param Request $request
      * @param int $todoId
      * @return RedirectResponse
+     * @throws ValidationException
      */
     public function update(Request $request, int $todoId): RedirectResponse
     {
@@ -98,7 +106,11 @@ class TodoController extends Controller
         $limit = $request->get('limit');
         $command = new TodoUpdateCommand($todoId, $title, $body, $limit);
 
-        $this->todoService->update($command);
+        try {
+            $this->todoService->update($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
 
         return redirect()->route('todos.index')->with('flash_message', 'Todoを更新しました');
     }
@@ -113,7 +125,11 @@ class TodoController extends Controller
     {
         $command = new TodoDeleteCommand($todoId);
 
-        $this->todoService->delete($command);
+        try {
+            $this->todoService->delete($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
 
         return redirect()->route('todos.index')->with('flash_message', 'Todoを削除しました');
     }
