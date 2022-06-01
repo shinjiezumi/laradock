@@ -2,9 +2,6 @@
 
 namespace App\DDD\Exceptions;
 
-/**
- *
- */
 class ResourceNotFoundException extends \Exception
 {
     const MESSAGE = 'リソースが見つかりませんでした';
