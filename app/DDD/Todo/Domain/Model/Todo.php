@@ -19,6 +19,12 @@ class Todo
     {
     }
 
+    /**
+     * @param TodoTitle $title
+     * @param TodoBody $body
+     * @param TodoLimit $limit
+     * @return Todo
+     */
     public static function construct(TodoTitle $title, TodoBody $body, TodoLimit $limit): Todo
     {
         $todo = new Todo();
@@ -29,6 +35,10 @@ class Todo
         return $todo;
     }
 
+    /**
+     * @param TodoData $todoData
+     * @return Todo
+     */
     public static function constructFromDataModel(TodoData $todoData): Todo
     {
         $todo = new Todo();
@@ -40,26 +50,44 @@ class Todo
         return $todo;
     }
 
+    /**
+     * @param TodoTitle $title
+     * @return void
+     */
     public function updateTitle(TodoTitle $title)
     {
         $this->title = $title;
     }
 
+    /**
+     * @param TodoBody $body
+     * @return void
+     */
     public function updateBody(TodoBody $body)
     {
         $this->body = $body;
     }
 
+    /**
+     * @param TodoLimit $limit
+     * @return void
+     */
     public function updateLimit(TodoLimit $limit)
     {
         $this->limit = $limit;
     }
 
+    /**
+     * @return int
+     */
     public function getId(): int
     {
         return $this->id;
     }
 
+    /**
+     * @return array
+     */
     public function toArray(): array
     {
         return [
