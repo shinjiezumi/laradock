@@ -6,8 +6,15 @@ use Illuminate\Validation\ValidationException;
 
 class TodoBody
 {
+    /**
+     * @var string
+     */
     private $value;
 
+    /**
+     * @param string $body
+     * @throws ValidationException
+     */
     public function __construct(string $body)
     {
         if ($body === '') {
@@ -19,6 +26,9 @@ class TodoBody
         $this->value = $body;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return $this->value;
