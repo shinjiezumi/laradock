@@ -7,8 +7,15 @@ use Illuminate\Validation\ValidationException;
 
 class TodoLimit
 {
+    /**
+     * @var DateTime
+     */
     private $value;
 
+    /**
+     * @param string $limit
+     * @throws ValidationException
+     */
     public function __construct(string $limit)
     {
         if ($limit === '') {
@@ -23,6 +30,9 @@ class TodoLimit
         $this->value = $limitDate;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return $this->value->format('Y-m-d');
