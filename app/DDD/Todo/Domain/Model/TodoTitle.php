@@ -6,8 +6,15 @@ use Illuminate\Validation\ValidationException;
 
 class TodoTitle
 {
+    /**
+     * @var string
+     */
     private $value;
 
+    /**
+     * @param string $title
+     * @throws ValidationException
+     */
     public function __construct(string $title)
     {
         if ($title === '') {
@@ -19,6 +26,9 @@ class TodoTitle
         $this->value = $title;
     }
 
+    /**
+     * @return string
+     */
     public function toString(): string
     {
         return $this->value;
