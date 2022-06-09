@@ -10,11 +10,29 @@ use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
  */
 class Todo
 {
+    /**
+     * @var
+     */
     private $id;
+
+    /**
+     * @var
+     */
     private $title;
+
+    /**
+     * @var
+     */
     private $body;
+
+    /**
+     * @var
+     */
     private $limit;
 
+    /**
+     *
+     */
     private function __construct()
     {
     }
