@@ -4,9 +4,6 @@ namespace App\DDD\Todo\Domain\Model;
 
 use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
 
-/**
- *
- */
 interface ITodoRepository
 {
     /**

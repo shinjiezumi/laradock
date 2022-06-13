@@ -7,9 +7,6 @@ use App\DDD\Todo\Domain\Model\Todo;
 use App\DDD\Todo\Domain\Model\TodoId;
 use App\DDD\Todo\Infrastructure\MySQL\Todo as TodoData;
 
-/**
- *
- */
 class TodoRepository implements ITodoRepository
 {
     /**

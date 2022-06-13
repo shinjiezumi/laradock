@@ -2,9 +2,6 @@
 
 namespace App\DDD\Todo\Application;
 
-/**
- *
- */
 class TodoUpdateCommand
 {
     /**
@@ -28,8 +25,8 @@ class TodoUpdateCommand
     private $limit;
 
     /**
-     * @param int $id
-     * @param string|null $title
+     * @param int $id id
+     * @param string|null $title タイトル
      * @param string|null $body
      * @param string|null $limit
      */

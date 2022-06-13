@@ -5,9 +5,6 @@ namespace App\DDD\Todo\Application;
 use App\DDD\Exceptions\ResourceNotFoundException;
 use Illuminate\Validation\ValidationException;
 
-/**
- * ITodoService Todoサービスインターフェース
- */
 interface ITodoService
 {
     /**
