@@ -13,6 +13,7 @@ interface ITodoRepository
 
     /**
      * @param int $id
+     * @return TodoData|null
      */
     public function findById(int $id): ?TodoData;
 

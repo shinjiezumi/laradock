@@ -18,8 +18,7 @@ class TodoRepository implements ITodoRepository
     }
 
     /**
-     * @param int $id
-     * @return \App\DDD\Todo\Infrastructure\MySQL\Todo|null
+     * @inheritdoc
      */
     public function findById(int $id): ?TodoData
     {
