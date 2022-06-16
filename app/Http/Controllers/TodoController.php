@@ -15,10 +15,6 @@ use Illuminate\Http\Request;
 use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-/**
- * Class TodoController
- * @package App\Http\Controllers
- */
 class TodoController extends Controller
 {
     /**
@@ -26,6 +22,9 @@ class TodoController extends Controller
      */
     private $todoService;
 
+    /**
+     * @param ITodoService $todoService
+     */
     public function __construct(ITodoService $todoService)
     {
         $this->todoService = $todoService;
