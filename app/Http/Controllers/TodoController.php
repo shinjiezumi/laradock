@@ -2,31 +2,44 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\TodoRequest;
-use App\Todo;
+use App\DDD\Exceptions\ResourceNotFoundException;
+use App\DDD\Todo\Application\ITodoService;
+use App\DDD\Todo\Application\TodoDeleteCommand;
+use App\DDD\Todo\Application\TodoGetCommand;
+use App\DDD\Todo\Application\TodoGetListCommand;
+use App\DDD\Todo\Application\TodoStoreCommand;
+use App\DDD\Todo\Application\TodoUpdateCommand;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Validation\ValidationException;
 use Illuminate\View\View;
 
-/**
- * Class TodoController
- * @package App\Http\Controllers
- */
 class TodoController extends Controller
 {
     /**
-     * @var int 1ページ辺りのTodo表示数
+     * @var ITodoService
      */
-    private const TODO_PER_PAGE = 5;
+    private $todoService;
+
+    /**
+     * @param ITodoService $todoService
+     */
+    public function __construct(ITodoService $todoService)
+    {
+        $this->todoService = $todoService;
+    }
 
     /**
      * Todo一覧ページを表示する
      *
      * @return Factory|View
      */
-    public function index()
+    public function index(Request $request)
     {
-        $todos = Todo::orderBy('limit', 'asc')->paginate(self::TODO_PER_PAGE);
+        $command = new TodoGetListCommand($request->get('page', 1));
+        $todos = $this->todoService->getList($command);
+
         return view('todo.index', ['todos' => $todos]);
     }
 
@@ -43,15 +56,18 @@ class TodoController extends Controller
     /**
      * Todoを作成する
      *
-     * @param TodoRequest $request
+     * @param Request $request
      * @return RedirectResponse
      */
-    public function store(TodoRequest $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
-        $data = $request->validated();
+        $title = $request->get('title',) ?? '';
+        $body = $request->get('body',) ?? '';
+        $limit = $request->get('limit',) ?? '';
+        $command = new TodoStoreCommand($title, $body, $limit);
 
-        $todo = new Todo();
-        $todo->fill($data)->save();
+        $this->todoService->store($command);
+
         return redirect()->route('todos.index')->with('flash_message', 'Todoを作成しました');
     }
 
@@ -63,23 +79,38 @@ class TodoController extends Controller
      */
     public function edit(int $todoId)
     {
-        $todo = Todo::find($todoId);
+        $command = new TodoGetCommand($todoId);
+
+        try {
+            $todo = $this->todoService->get($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
         return view('todo.edit', ['todo' => $todo]);
     }
 
     /**
      * Todoを更新する
      *
-     * @param TodoRequest $request
+     * @param Request $request
      * @param int $todoId
      * @return RedirectResponse
+     * @throws ValidationException
      */
-    public function update(TodoRequest $request, int $todoId): RedirectResponse
+    public function update(Request $request, int $todoId): RedirectResponse
     {
-        $data = $request->validated();
+        $title = $request->get('title');
+        $body = $request->get('body');
+        $limit = $request->get('limit');
+        $command = new TodoUpdateCommand($todoId, $title, $body, $limit);
 
-        $todo = Todo::find($todoId);
-        $todo->fill($data)->save();
+        try {
+            $this->todoService->update($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
         return redirect()->route('todos.index')->with('flash_message', 'Todoを更新しました');
     }
 
@@ -91,7 +122,14 @@ class TodoController extends Controller
      */
     public function destroy(int $todoId): RedirectResponse
     {
-        Todo::find($todoId)->delete();
+        $command = new TodoDeleteCommand($todoId);
+
+        try {
+            $this->todoService->delete($command);
+        } catch (ResourceNotFoundException $e) {
+            abort($e->getCode(), $e->getMessage());
+        }
+
         return redirect()->route('todos.index')->with('flash_message', 'Todoを削除しました');
     }
 }
