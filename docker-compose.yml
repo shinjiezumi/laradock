@@ -5,6 +5,7 @@ services:
     build: docker/nginx
     ports:
       - 8000:80
+    platform: linux/amd64
     depends_on:
       - app
     volumes:
@@ -28,6 +29,7 @@ services:
     build: docker/mysql
     ports:
       - 3306:3306
+    platform: linux/amd64
     volumes:
       - ./docker/mysql/data:/var/lib/mysql
       - ./logs/mysql:/var/log/mysql
