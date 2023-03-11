@@ -25,6 +25,8 @@ jobs:
       - run:
           name: install packages
           command: |
+            sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 4EB27DB2A3B88B8B
+            sudo apt-get update --allow-releaseinfo-change
             sudo apt update
             sudo docker-php-ext-install zip pdo_mysql
             sudo apt-get install default-mysql-client
@@ -92,9 +94,9 @@ workflows:
   release:
     jobs:
       - build
-      - deploy:
-          requires:
-            - build
-          filters:
-            branches:
-              only: master
+#      - deploy:
+#          requires:
+#            - build
+#          filters:
+#            branches:
+#              only: master
