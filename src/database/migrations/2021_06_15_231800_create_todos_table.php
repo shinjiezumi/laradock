@@ -18,7 +18,8 @@ class CreateTodosTable extends Migration
             $table->string('title', 30)->comment('タイトル');
             $table->string('body', 100)->comment('内容');
             $table->timestamp('limit')->index()->comment('期限');
-            $table->timestamps();
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
         });
     }
 
