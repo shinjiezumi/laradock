@@ -2,7 +2,8 @@ FROM php:7.3-fpm
 
 RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
-    unzip
+    unzip \
+    libpq-dev
 
 RUN docker-php-ext-install pdo_mysql pdo_pgsql
 
