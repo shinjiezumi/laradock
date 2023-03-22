@@ -4,7 +4,7 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     zip \
     unzip
 
-RUN docker-php-ext-install pdo_mysql
+RUN docker-php-ext-install pdo_mysql pdo_pgsql
 
 RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
 RUN apt-get install -y --no-install-recommends nodejs
