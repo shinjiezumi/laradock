@@ -1,20 +1,23 @@
-FROM richarvey/nginx-php-fpm:2.1.2
+FROM php:7.3-fpm
 
-COPY . .
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    zip \
+    unzip \
+    libpq-dev
 
-# Image config
-ENV SKIP_COMPOSER 1
-ENV WEBROOT /var/www/html/public
-ENV PHP_ERRORS_STDERR 1
-ENV RUN_SCRIPTS 1
-ENV REAL_IP_HEADER 1
+RUN docker-php-ext-install pdo_pgsql
 
-# Laravel config
-ENV APP_ENV production
-ENV APP_DEBUG false
-ENV LOG_CHANNEL stderr
+RUN curl -sL https://deb.nodesource.com/setup_14.x | bash -
+RUN apt-get install -y --no-install-recommends nodejs
 
-# Allow composer to run as root
-ENV COMPOSER_ALLOW_SUPERUSER 1
+COPY ./ /var/www/html/
 
-CMD ["/start.sh"]
+RUN php composer.phar install --no-dev
+RUN chmod -R a+w storage/ bootstrap/cache
+
+RUN php artisan config:cache
+
+RUN php artisan migrate --force
+
+RUN npm install
+RUN npm run production
