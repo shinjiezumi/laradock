@@ -21,3 +21,4 @@ RUN php artisan migrate --force
 
 RUN npm install
 RUN npm run production
+
