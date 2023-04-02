@@ -100,11 +100,18 @@ PORTFOLIO.DATA_CONTROLLER = {
     }
   },
   handlePageTopClick(parent) {
-    parent.$htmlBody.animate({ scrollTop: 0 }, 500, 'swing');
+    parent.$htmlBody.animate({scrollTop: 0}, 500, 'swing');
   },
 };
 
 $(() => {
+  // eslint-disable-next-line no-restricted-globals
+  const url = new URL(location);
+  const path = url.pathname;
+  if (!path.startsWith('/pf')) {
+    return;
+  }
+
   PORTFOLIO.DATA_CONTROLLER.init();
 });
 
