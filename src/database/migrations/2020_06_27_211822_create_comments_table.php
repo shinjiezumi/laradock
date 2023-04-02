@@ -18,8 +18,8 @@ class CreateCommentsTable extends Migration
             $table->unsignedBigInteger('board_id')->comment('投稿ID');
             $table->text('comment')->comment('コメント');
             $table->string('name')->comment('投稿者');
-            $table->timestamp('created_at')->default(DB::raw('CURRENT_TIMESTAMP'));
-            $table->timestamp('updated_at')->default(DB::raw('CURRENT_TIMESTAMP on update CURRENT_TIMESTAMP'));
+            $table->timestamp('created_at')->useCurrent();
+            $table->timestamp('updated_at')->useCurrent();
 
             $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
         });
