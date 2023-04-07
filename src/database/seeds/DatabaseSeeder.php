@@ -11,7 +11,9 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-         $this->call(BoardsTableSeeder::class);
-         $this->call(TagsTableSeeder::class);
+        $this->call(BoardsTableSeeder::class);
+        $this->call(TagsTableSeeder::class);
+        $this->call(MCollectionTypesSeeder::class);
+        $this->call(MSiteTypesSeeder::class);
     }
 }

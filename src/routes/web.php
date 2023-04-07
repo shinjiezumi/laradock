@@ -48,3 +48,18 @@ Route::get('/event', function () {
 
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::get('/mycolle', 'MycolleController@index')->name('mycolle');
+Route::get('/mycolle/settings', 'SettingsController@list')->name('settings');
+
+// TODO fix
+Route::group(['prefix' => '/apis/v1'], function () {
+    Route::get('get-mycolle/{mycolle_id?}', 'MycolleApiController@getMycolle');
+    Route::post('edit-mycolle/{mycolle_id}', 'MycolleApiController@editMycolle');
+    Route::get('search-mycolle/{collection_type}/{search_keywords}', 'MycolleApiController@searchMycolle');
+    Route::get('get-mysites/{mysite_id?}', 'MycolleApiController@getMysites');
+    Route::post('edit-mysites/{mysite_id}', 'MycolleApiController@editMysites');
+    Route::get('search-mysites/{site_type}/{search_keywords}', 'MycolleApiController@searchMysites');
+    Route::get('get-mysite-ids/', 'MycolleApiController@getMysiteIds');
+    Route::get('get-mysite-contents/{mysite_id?}', 'MycolleApiController@getMysiteContents');
+});
