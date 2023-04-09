@@ -145,5 +145,5 @@
 @endsection
 
 @section('javascripts')
-  <script src="/js/settings.js?v={{env('JS_VERSION', '1')}}"></script>
+  <script src="{{ mix('js/mycolle/settings.js') }}" defer></script>
 @endsection

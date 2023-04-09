@@ -81,8 +81,8 @@
     </footer>
 
     <!-- Scripts -->
-    <script src="/js/app.js?v={{env('JS_VERSION', '1')}}"></script>
-    <script src="/js/common.js?v={{env('JS_VERSION', '1')}}"></script>
+    <script src="{{ mix('js/app.js') }}" defer></script>
+    <script src="{{ mix('js/mycolle/common.js') }}" defer></script>
     @yield('javascripts')
   </body>
 </html>

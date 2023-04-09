@@ -32,5 +32,5 @@
 @endsection
 
 @section('javascripts')
-  <script src="/js/home.js?v={{env('JS_VERSION', '1')}}"></script>
+  <script src="{{ mix('js/mycolle/home.js') }}" defer></script>
 @endsection

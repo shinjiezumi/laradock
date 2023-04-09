@@ -11,6 +11,10 @@ const mix = require('laravel-mix');
  |
  */
 
-mix.js('resources/js/app.js', 'public/js')
+mix
+  .js('resources/js/app.js', 'public/js')
+  .js('resources/js/mycolle/common.js', 'public/js/mycolle')
+  .js('resources/js/mycolle/home.js', 'public/js/mycolle')
+  .js('resources/js/mycolle/settings.js', 'public/js/mycolle')
   .sass('resources/sass/app.scss', 'public/css')
   .version();
