@@ -2,18 +2,18 @@
 
 namespace App\Http\Controllers;
 
+use App\Libs\FeedlyApiDriver;
 use App\Libs\HtmlDriver;
+use App\Libs\MycolleConstants;
+use App\Libs\MycolleUtils;
 use App\Libs\SlideshareApiDriver;
+use App\Libs\YoutubeApiDriver;
 use App\MyCollection;
 use App\MySite;
 use App\Mysites;
+use DateTime;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use App\Libs\YoutubeApiDriver;
-use App\Libs\FeedlyApiDriver;
-use App\Libs\MycolleConstants;
-use App\Libs\MycolleUtils;
-use \DateTime;
 
 
 class MycolleApiController extends Controller
@@ -42,7 +42,7 @@ class MycolleApiController extends Controller
             switch ($myCollection->collection_type_id) {
                 case MycolleConstants::COLLECTION_TYPE_SLIDE_SHARE:
                     $data['title'] = isset($collectionDetail['Title']) ? $collectionDetail['Title'] : '';
-                    $data['description'] = count($collectionDetail['Description']) > 0 ? $collectionDetail['Description'] : '';
+                    $data['description'] = !empty($collectionDetail['Description']) ? $collectionDetail['Description'] : '';
                     $data['thumbnail'] = isset($collectionDetail['ThumbnailURL']) ? $collectionDetail['ThumbnailURL'] : MycolleUtils::createDummyThumbnail();
                     $data['content'] = $collectionDetail['Embed'];
                     $data['content_url'] = $collectionDetail['URL'];
@@ -99,7 +99,7 @@ class MycolleApiController extends Controller
                     if (isset($apiResponse['errorMsg'])) {
                         return response()->json($this->createResponse([], '', true));
                     }
-                    $apiResponse['url'] =sprintf(YoutubeApiDriver::YOUTUBE_WATCH_URL, $apiResponse['id']);
+                    $apiResponse['url'] = sprintf(YoutubeApiDriver::YOUTUBE_WATCH_URL, $apiResponse['id']);
                     break;
                 case MycolleConstants::COLLECTION_TYPE_HTML:
                     $apiDriver = new HtmlDriver();
@@ -235,8 +235,7 @@ class MycolleApiController extends Controller
         $userId = Auth::user()->id;
         $response = [];
         $mySites = MySite::where('user_id', $userId)->orderBy('created_at', 'asc')->get();
-        foreach ($mySites as $mySite)
-        {
+        foreach ($mySites as $mySite) {
             $response[] = $mySite->id;
         }
 
@@ -244,7 +243,7 @@ class MycolleApiController extends Controller
     }
 
 
-    public function getMysiteContents(Request $request, $mysiteId=null)
+    public function getMysiteContents(Request $request, $mysiteId = null)
     {
         $userId = Auth::user()->id;
         $response = [];
@@ -257,23 +256,21 @@ class MycolleApiController extends Controller
         foreach ($mySites as $mySite) {
             $siteDetail = json_decode($mySite->site_detail, true);
 
-            switch ($mySite->site_type_id)
-            {
+            switch ($mySite->site_type_id) {
                 case MycolleConstants::SITE_TYPE_FEEDLY:
                     $feedId = $siteDetail['id'];
 
                     $apiDriver = new FeedlyApiDriver();
                     $contents = $apiDriver->getStreams($feedId);
-                    $cnt=0;
+                    $cnt = 0;
                     $items = [];
-                    foreach ($contents['items'] as $content)
-                    {
+                    foreach ($contents['items'] as $content) {
                         $items[$cnt]["item_id"] = $content['id'];
                         $items[$cnt]["title"] = isset($content['title']) ? $content['title'] : '';
                         $items[$cnt]["keywords"] = MycolleUtils::escapeArray(isset($content['keywords']) ? $content['keywords'] : []);
                         //TODO direction(ltr, rtl)要確認。HTMLタグのためescapeしていない
                         $items[$cnt]["summary"] = @isset($content['summary']['content']) ? strip_tags($content['summary']['content']) : '';
-                        $items[$cnt]["thumbnail"] = (isset($content['visual']['url'])  && $content['visual']['url'] !== 'none') ? $content['visual']['url'] : MycolleUtils::createDummyThumbnail();
+                        $items[$cnt]["thumbnail"] = (isset($content['visual']['url']) && $content['visual']['url'] !== 'none') ? $content['visual']['url'] : MycolleUtils::createDummyThumbnail();
                         $items[$cnt]["url"] = $content['alternate'][0]['href'];
                         $items[$cnt]["date"] = (new DateTime())->setTimeStamp($content['published'])->format('Y-m-d H:i:s');
                         $cnt++;
