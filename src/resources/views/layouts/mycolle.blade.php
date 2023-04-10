@@ -11,8 +11,6 @@
     <title>@yield('title') | {{ config('app.name', 'マイコレ') }}</title>
 
     <!-- Styles -->
-    <link href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css" rel="stylesheet">
-    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css" rel="stylesheet">
     <link href="{{ mix('css/mycolle/main.css') }}" rel="stylesheet">
 
     <!-- Scripts -->
