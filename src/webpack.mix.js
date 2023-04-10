@@ -17,4 +17,5 @@ mix
   .js('resources/js/mycolle/home.js', 'public/js/mycolle')
   .js('resources/js/mycolle/settings.js', 'public/js/mycolle')
   .sass('resources/sass/app.scss', 'public/css')
+  .css('resources/css/mycolle/main.css', 'public/css/mycolle')
   .version();

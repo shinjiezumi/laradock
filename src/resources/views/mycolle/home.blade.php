@@ -27,10 +27,6 @@
   </section>
 @endsection
 
-@section('stylesheets')
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-@endsection
-
 @section('javascripts')
   <script src="{{ mix('js/mycolle/home.js') }}" defer></script>
 @endsection
