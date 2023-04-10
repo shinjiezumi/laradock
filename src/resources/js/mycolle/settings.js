@@ -95,7 +95,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '<article class="mysites-list-item open-animation">' +
         '<div class="mysites-list-item-title">' +
         '<h2 class="mysites-title">' + window.COMMON.UTILS.roundString(mysite.title, 10) + '</h2>' +
-        '<button class="jsc-delete-mysites-btn" data-mysite-id="' + mysite.mysite_id + '" data-site-type="' + mysite.site_type + '" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>' +
+        '<button class="jsc-delete-mysites-btn" data-mysite-id="' + mysite.mysite_id + '" data-site-type="' + mysite.site_type + '" ><i class="fa fa-trash-alt fa-lg" aria-hidden="true"></i></button>' +
         '</div>' +
         '<div class="mysites-list-item-image" style="background-image: url(' + mysite.thumbnail + ')"></div>' +
         '<div class="mysites-list-item-detail">' +
@@ -137,7 +137,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '<article class="mycolle-list-item open-animation">' +
         '<div class="mycolle-list-item-title">' +
         '<h2 class="mycolle-title">' + window.COMMON.UTILS.roundString(mycolle.title, 10) + '</h2>' +
-        '<button class="jsc-delete-mycolle-btn" data-mycolle-id="' + mycolle.mycolle_id + '" data-collection-type="' + mycolle.collection_type + '" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>' +
+        '<button class="jsc-delete-mycolle-btn" data-mycolle-id="' + mycolle.mycolle_id + '" data-collection-type="' + mycolle.collection_type + '" ><i class="fa fa-trash-alt fa-lg" aria-hidden="true"></i></button>' +
         '</div>' +
         '<div class="mycolle-list-item-image" style="background-image: url(' + mycolle.thumbnail + ')"></div>' +
         '<div class="mycolle-list-item-detail">' +
@@ -488,7 +488,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       '<article class="mysites-list-item open-animation">' +
       '<div class="mysites-list-item-title">' +
       '<h2 class="mysites-title">' + window.COMMON.UTILS.roundString(storeParam.title, 10) + '</h2>' +
-      '<button class="jsc-delete-mysites-btn" data-mysite-id="' + response.details.mysite_id + '" data-site-type="' + storeParam.site_type + '" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>' +
+      '<button class="jsc-delete-mysites-btn" data-mysite-id="' + response.details.mysite_id + '" data-site-type="' + storeParam.site_type + '" ><i class="fa fa-trash-alt fa-lg" aria-hidden="true"></i></button>' +
       '</div>' +
       '<div class="mysites-list-item-image" style="background-image: url(' + storeParam.thumbnail + ')"></div>' +
       '<div class="mysites-list-item-detail">' +
@@ -535,7 +535,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       '<article class="mycolle-list-item open-animation">' +
       '<div class="mycolle-list-item-title">' +
       '<h2 class="mycolle-title">' + window.COMMON.UTILS.roundString(storeParam.title, 10) + '</h2>' +
-      '<button class="jsc-delete-mycolle-btn" data-mycolle-id="' + response.details.mycolle_id + '" data-collection-type="' + storeParam.collection_type + '" ><i class="fa fa-trash-o fa-lg" aria-hidden="true"></i></button>' +
+      '<button class="jsc-delete-mycolle-btn" data-mycolle-id="' + response.details.mycolle_id + '" data-collection-type="' + storeParam.collection_type + '" ><i class="fa fa-trash-alt fa-lg" aria-hidden="true"></i></button>' +
       '</div>' +
       '<div class="mycolle-list-item-image" style="background-image: url(' + storeParam.thumbnail + ')"></div>' +
       '<div class="mycolle-list-item-detail">' +
@@ -555,7 +555,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       "delete_flag": true
     };
 
-    $(this).find('.fa').removeClass('fa-trash-o').addClass('fa-hand-paper-o').addClass('repeat-rotate');
+    $(this).find('.fa').removeClass('fa-trash-alt').addClass('fa-hand-paper-o').addClass('repeat-rotate');
     var deleteTarget = $(this).closest('.mysites-list-item');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleDeleteMysitesResponse, null, this, deleteTarget));
@@ -578,7 +578,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       "delete_flag": true
     };
 
-    $(this).find('.fa').removeClass('fa-trash-o').addClass('fa-hand-paper-o').addClass('repeat-rotate');
+    $(this).find('.fa').removeClass('fa-trash-alt').addClass('fa-hand-paper-o').addClass('repeat-rotate');
     var deleteTarget = $(this).closest('.mycolle-list-item');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleDeleteMycolleResponse, null, this, deleteTarget));
