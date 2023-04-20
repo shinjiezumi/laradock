@@ -72,7 +72,7 @@ MYCOLLE.HOME.DATA_CONTROLLER = {
     $(details).each(function (i, mysiteContent) {
       var sectionHtml =
         '<section class="mysite-contents-list">' +
-        '<h3><i class="fa fa-check-square-o fa-lg" aria-hidden="true"></i><span class="site-title">' + mysiteContent.site_title + '</span></h3>' +
+        '<h3><i class="fa fa-check-square fa-lg" aria-hidden="true"></i><span class="site-title">' + mysiteContent.site_title + '</span></h3>' +
         '<div class="mysite-contents-site-list">';
 
       $(mysiteContent['items']).each(function (j, item) {
