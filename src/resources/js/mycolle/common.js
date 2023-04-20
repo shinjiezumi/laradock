@@ -1,14 +1,14 @@
 /**
  * Created by User on 2017/01/08.
  */
-var MYCOLLE = MYCOLLE || {};
+const MYCOLLE = MYCOLLE || {};
 MYCOLLE.COMMON = {};
 
 MYCOLLE.COMMON.REQUEST = {
   METHOD_GET: 'GET',
   METHOD_POST: 'POST',
 
-  sendToServer: function (url, type, data, callback) {
+  sendToServer(url, type, data, callback) {
     $.ajaxSetup({
       headers: {
         'X-CSRF-TOKEN': window.Laravel.csrfToken
@@ -70,7 +70,7 @@ MYCOLLE.COMMON.DOMAIN = {
 }
 
 MYCOLLE.COMMON.UTILS = {
-  roundString: function (str, length, afterText) {
+  roundString(str, length, afterText) {
     if (str === undefined) {
       return '';
     }
@@ -92,33 +92,33 @@ MYCOLLE.COMMON.UTILS = {
 
 
 MYCOLLE.COMMON.HEADEREVENTS = {
-  init: function () {
+  init() {
     this.setParameters();
     this.bindEvents();
     this.initialize();
   },
-  setParameters: function () {
+  setParameters() {
     this.$headerToggle = $('#jsc-header-toggle');
     this.$headerNav = $('#jsc-header-nav');
   },
-  bindEvents: function () {
+  bindEvents() {
     this.$headerToggle.on('click', $.proxy(this.toggleHeader, this));
   },
-  initialize: function () {
+  initialize() {
     // this.$headerNav.hide();
   },
-  toggleHeader: function () {
+  toggleHeader() {
     this.$headerNav.slideToggle();
   }
 };
 
-$(function () {
+$(() => {
   MYCOLLE.COMMON.HEADEREVENTS.init();
 });
 
 MYCOLLE.COMMON.AD = {
-  getResponsiveAdCd: function () {
-    var ad = '';
+  getResponsiveAdCd() {
+    let ad = '';
     if (document.domain === MYCOLLE.COMMON.DOMAIN.PROD) {
       ad =
         '<div class="ad responsive">' +
@@ -145,8 +145,8 @@ MYCOLLE.COMMON.AD = {
 
     return ad;
   },
-  getFixedAdCd: function () {
-    var ad = '';
+  getFixedAdCd () {
+    let ad = '';
     if (document.domain === MYCOLLE.COMMON.DOMAIN.PROD) {
       ad =
         '<div class="ad responsive">' +
