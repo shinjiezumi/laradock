@@ -1,20 +1,19 @@
 /**
  * Created by User on 2017/01/08.
  */
-var MYCOLLE = MYCOLLE || {};
+const MYCOLLE = MYCOLLE || {};
 MYCOLLE.SETTINGS = {};
 
 MYCOLLE.SETTINGS.DATA_CONTROLLER = {
   timer: undefined,
   timerWeight: 1000 + 1.5, /* 1.5sec */
 
-  init: function () {
+  init() {
     this.setParameters();
     this.bindEvents();
-
     this.initialize();
   },
-  setParameters: function () {
+  setParameters() {
     this.$settingTypeSelectTabItems = $('.jsc-setting-type-select-tab-item');
     this.$settingTypeSelectTabContentsItems = $('.jsc-setting-type-select-tab-contents-item');
     this.$mysitesLists = $('#jsc-mysites-list');
@@ -47,7 +46,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     this.$searchHtmlResults = $('#jsc-search-html-results');
 
   },
-  bindEvents: function () {
+  bindEvents() {
     this.$settingTypeSelectTabItems.on('click', $.proxy(this.handleSelectSettingTypeTabItem, null, this));
     this.$addMySitesBtn.on('click', $.proxy(this.handleAddMysitesBtn, this));
     this.$searchFeedBox.on('keyup', $.proxy(this.handleChangeSearchFeedBox, this));
@@ -65,33 +64,33 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     $(document).on('click', '.jsc-delete-mysites-btn', $.proxy(this.handleDeleteMysitesBtn, null, this));
     $(document).on('click', '.jsc-delete-mycolle-btn', $.proxy(this.handleDeleteMycolleBtn, null, this));
   },
-  initialize: function () {
+  initialize() {
     this.getMysites();
     this.getMycolle();
   },
-  getMysites: function () {
+  getMysites() {
     this.$mysitesListLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.GET_MYSITES_API_URL;
+    let url = window.COMMON.APIS.GET_MYSITES_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYCOLLE_ID, '');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleGetMysites, null, this));
   },
-  handleGetMysites: function (parent, response) {
+  handleGetMysites(parent, response) {
     if (response.error_flag) {
       // TODO エラー
       $(parent.$mysitesListLoader).fadeOut();
     }
 
-    var details = response.details;
+    const details = response.details;
     if (details.length === 0) {
       $(parent.$mysitesListLoader).fadeOut();
       return;
     }
 
-    var mysitesHtml = '';
+    let mysitesHtml = '';
     $(details).each(function (idx, mysite) {
-      var html =
+      const html =
         '<article class="mysites-list-item open-animation">' +
         '<div class="mysites-list-item-title">' +
         '<h2 class="mysites-title">' + window.COMMON.UTILS.roundString(mysite.title, 10) + '</h2>' +
@@ -114,7 +113,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
   getMycolle: function () {
     this.$mycolleListLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.GET_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.GET_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYCOLLE_ID, '');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleGetMycolle, null, this));
@@ -125,15 +124,15 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       $(parent.$mycolleListLoader).fadeOut();
     }
 
-    var details = response.details;
+    const details = response.details;
     if (details.length === 0) {
       $(parent.$mycolleListLoader).fadeOut();
       return;
     }
 
-    var mycolleHtml = '';
+    let mycolleHtml = '';
     $(details).each(function (idx, mycolle) {
-      var html =
+      const html =
         '<article class="mycolle-list-item open-animation">' +
         '<div class="mycolle-list-item-title">' +
         '<h2 class="mycolle-title">' + window.COMMON.UTILS.roundString(mycolle.title, 10) + '</h2>' +
@@ -159,7 +158,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
   handleAddMycolleBtn: function () {
     this.$mycolleTypeSelectTabContainer.css('display', 'block');
   },
-  handleSelectSettingTypeTabItem: function (parent, event) {
+  handleSelectSettingTypeTabItem: function (parent) {
     parent.$mysitesTypeSelectTabContainer.css('display', 'none');
     parent.$mycolleTypeSelectTabContainer.css('display', 'none');
     parent.$searchFeedBox.val('');
@@ -167,14 +166,14 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     parent.$searchYoutubeBox.val('');
     parent.$searchHtmlBox.val('');
 
-    var index = parent.$settingTypeSelectTabItems.index(this);
+    const index = parent.$settingTypeSelectTabItems.index(this);
     parent.$settingTypeSelectTabContentsItems.css('display', 'none');
     parent.$settingTypeSelectTabContentsItems.eq(index).css('display', 'block');
     parent.$settingTypeSelectTabItems.removeClass('select');
     $(this).addClass('select');
   },
-  handleSelectMycollectTabItem: function (parent, event) {
-    var index = parent.$mycolleTypeSelectTabItems.index(this);
+  handleSelectMycollectTabItem: function (parent) {
+    const index = parent.$mycolleTypeSelectTabItems.index(this);
     parent.$mycolleTypeSelectTabContentsItems.css('display', 'none');
     parent.$mycolleTypeSelectTabContentsItems.eq(index).css('display', 'block');
     parent.$mycolleTypeSelectTabItems.removeClass('select');
@@ -211,7 +210,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     this.$searchFeedLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.SEARCH_MYSITES_API_URL;
+    let url = window.COMMON.APIS.SEARCH_MYSITES_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.SITE_TYPE, window.COMMON.SITE_TYPES.FEEDLY).replace(window.COMMON.APIS.ALIASES.SEARCH_KEYWORDS, this.$searchFeedBox.val());
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleSearchFeedResponse, null, this));
@@ -233,19 +232,19 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       return;
     }
 
-    var searchResults = response.details;
-    var searchResultsHtml = '';
+    const searchResults = response.details;
+    let searchResultsHtml = '';
     $(searchResults).each(function (idx, searchResult) {
-      var tagHtml = '';
+      let tagHtml = '';
       $(searchResult['tags']).each(function (idx, tag) {
         tagHtml += '<span class="content-tag">' + '#' + tag + '</span>';
       });
-      var html =
+      const html =
         '<article class="search-result-item">' +
         '<div class="search-result-item-image" style="background-image: url(' + searchResult.thumbnail + ')"></div>' +
         '<div class="search-result-item-detail">' +
         '<h3 class="search-result-item-title">' + searchResult.title +
-        '<span class="content-followers"><i class="fa fa-user-o fa-lg" aria-hidden="true"></i> ' + searchResult.followers + '</span>' +
+        '<span class="content-followers"><i class="fa fa-user fa-lg" aria-hidden="true"></i> ' + searchResult.followers + '</span>' +
         '</h3>' +
         '<div class="search-result-item-tags">' + tagHtml + '</div>' +
         '<div class="search-result-item-description">' + searchResult.description + '</div>' +
@@ -257,7 +256,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '</article>';
       searchResultsHtml += html;
 
-      var storeParam = {
+      const storeParam = {
         "title": searchResult.title,
         "description": searchResult.description,
         "thumbnail": searchResult.thumbnail,
@@ -280,7 +279,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     this.$searchSlideLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.COLLECTION_TYPE, window.COMMON.COLLECTION_TYPES.SLIDE_SHARE).replace(window.COMMON.APIS.ALIASES.SEARCH_KEYWORDS, this.$searchSlideBox.val());
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleSearchSlideResponse, null, this));
@@ -302,10 +301,10 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       return;
     }
 
-    var searchResults = response.details;
-    var searchResultsHtml = '';
+    const searchResults = response.details;
+    let searchResultsHtml = '';
     $(searchResults).each(function (idx, searchResult) {
-      var html =
+      const html =
         '<article class="search-result-item">' +
         '<div class="search-result-item-image" style="background-image: url(' + searchResult.thumbnail + ')"></div>' +
         '<div class="search-result-item-detail">' +
@@ -319,7 +318,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '</article>';
       searchResultsHtml += html;
 
-      var storeParam = {
+      const storeParam = {
         "title": searchResult.title,
         "description": searchResult.description,
         "thumbnail": searchResult.thumbnail,
@@ -340,7 +339,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     this.$searchYoutubeLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.COLLECTION_TYPE, window.COMMON.COLLECTION_TYPES.YOUTUBE).replace(window.COMMON.APIS.ALIASES.SEARCH_KEYWORDS, this.$searchYoutubeBox.val());
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleSearchYoutubeResponse, null, this));
@@ -362,10 +361,10 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       return;
     }
 
-    var searchResults = response.details;
-    var searchResultsHtml = '';
+    const searchResults = response.details;
+    let searchResultsHtml = '';
     $(searchResults).each(function (idx, searchResult) {
-      var html =
+      const html =
         '<article class="search-result-item">' +
         '<div class="search-result-item-image" style="background-image: url(' + searchResult.thumbnail + ')"></div>' +
         '<div class="search-result-item-detail">' +
@@ -379,7 +378,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '</article>';
       searchResultsHtml += html;
 
-      var storeParam = {
+      const storeParam = {
         "title": searchResult.title,
         "description": searchResult.description,
         "thumbnail": searchResult.thumbnail,
@@ -401,7 +400,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     this.$searchHtmlLoader.css('display', 'block');
 
-    var url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.SEARCH_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.COLLECTION_TYPE, window.COMMON.COLLECTION_TYPES.HTML).replace(window.COMMON.APIS.ALIASES.SEARCH_KEYWORDS, encodeURIComponent(encodeURIComponent(this.$searchHtmlBox.val())));
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_GET, {}, $.proxy(this.handleSearchHtmlResponse, null, this));
@@ -423,10 +422,10 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
       return;
     }
 
-    var searchResults = response.details;
-    var searchResultsHtml = '';
+    const searchResults = response.details;
+    let searchResultsHtml = '';
     $(searchResults).each(function (idx, searchResult) {
-      var html =
+      const html =
         '<article class="search-result-item">' +
         '<div class="search-result-item-image" style="background-image: url(' + searchResult.thumbnail + ')"></div>' +
         '<div class="search-result-item-detail">' +
@@ -440,7 +439,7 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
         '</article>';
       searchResultsHtml += html;
 
-      var storeParam = {
+      const storeParam = {
         "title": searchResult.title,
         "description": searchResult.description,
         "thumbnail": searchResult.thumbnail,
@@ -455,22 +454,22 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     });
   },
   handleRegisterMysitesBtn: function (parent, event) {
-    var url = window.COMMON.APIS.EDIT_MYSITES_API_URL;
+    let url = window.COMMON.APIS.EDIT_MYSITES_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYSITES_ID, 0);
 
-    var siteType = $(event.target).attr('data-site-type');
-    var contentId = $(event.target).attr('data-content-id');
+    let siteType = $(event.target).attr('data-site-type');
+    let contentId = $(event.target).attr('data-content-id');
     if (siteType === undefined) {
       siteType = $(event.target).closest('.jsc-register-mysites-btn').attr('data-site-type');
       contentId = $(event.target).closest('.jsc-register-mysites-btn').attr('data-content-id');
     }
-    var data = {
+    const data = {
       "site_type": siteType,
       "content_id": contentId,
       "delete_flag": false
     };
 
-    var registerTarget = $(this).find('.fa');
+    const registerTarget = $(this).find('.fa');
     registerTarget.addClass('rotate');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleRegisterMysitesResponse, null, parent, registerTarget, contentId));
@@ -482,9 +481,9 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     $(registerTarget).removeClass('rotate').removeClass('fa-paperclip').addClass('fa-check').closest('.jsc-register-mysites-btn').addClass('registered-content');
 
-    var storeParam = JSON.parse(sessionStorage[contentId]);
+    const storeParam = JSON.parse(sessionStorage[contentId]);
 
-    var mysiteHtml =
+    const mysiteHtml =
       '<article class="mysites-list-item open-animation">' +
       '<div class="mysites-list-item-title">' +
       '<h2 class="mysites-title">' + window.COMMON.UTILS.roundString(storeParam.title, 10) + '</h2>' +
@@ -502,23 +501,23 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
   },
   handleRegisterMycolleBtn: function (parent, event) {
-    var url = window.COMMON.APIS.EDIT_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.EDIT_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYCOLLE_ID, 0);
 
-    var collectionType = $(event.target).attr('data-collection-type');
-    var contentId = $(event.target).attr('data-content-id');
+    let collectionType = $(event.target).attr('data-collection-type');
+    let contentId = $(event.target).attr('data-content-id');
     if (collectionType === undefined) {
       collectionType = $(event.target).closest('.jsc-register-mycolle-btn').attr('data-collection-type');
       contentId = $(event.target).closest('.jsc-register-mycolle-btn').attr('data-content-id');
     }
 
-    var data = {
+    const data = {
       "collection_type": collectionType,
       "content_id": contentId,
       "delete_flag": false
     };
 
-    var registerTarget = $(this).find('.fa');
+    const registerTarget = $(this).find('.fa');
     registerTarget.addClass('rotate');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleRegisterMycolleResponse, null, parent, registerTarget, contentId));
@@ -529,9 +528,9 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     }
     $(registerTarget).removeClass('rotate').removeClass('fa-paperclip').addClass('fa-check').closest('.jsc-register-mycolle-btn').addClass('registered-content');
 
-    var storeParam = JSON.parse(sessionStorage[contentId]);
+    const storeParam = JSON.parse(sessionStorage[contentId]);
 
-    var mycolleHtml =
+    const mycolleHtml =
       '<article class="mycolle-list-item open-animation">' +
       '<div class="mycolle-list-item-title">' +
       '<h2 class="mycolle-title">' + window.COMMON.UTILS.roundString(storeParam.title, 10) + '</h2>' +
@@ -547,16 +546,16 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
     sessionStorage.removeItem(contentId);
   },
-  handleDeleteMysitesBtn: function (parent, event) {
-    var url = window.COMMON.APIS.EDIT_MYSITES_API_URL;
+  handleDeleteMysitesBtn: function (parent) {
+    let url = window.COMMON.APIS.EDIT_MYSITES_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYSITES_ID, $(this).attr('data-mysite-id'));
 
-    var data = {
+    const data = {
       "delete_flag": true
     };
 
     $(this).find('.fa').removeClass('fa-trash-alt').addClass('fa-hand-paper-o').addClass('repeat-rotate');
-    var deleteTarget = $(this).closest('.mysites-list-item');
+    const deleteTarget = $(this).closest('.mysites-list-item');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleDeleteMysitesResponse, null, this, deleteTarget));
   },
@@ -571,15 +570,15 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
 
   },
   handleDeleteMycolleBtn: function (parent, event) {
-    var url = window.COMMON.APIS.EDIT_MYCOLLE_API_URL;
+    let url = window.COMMON.APIS.EDIT_MYCOLLE_API_URL;
     url = url.replace(window.COMMON.APIS.ALIASES.MYCOLLE_ID, $(this).attr('data-mycolle-id'));
 
-    var data = {
+    const data = {
       "delete_flag": true
     };
 
     $(this).find('.fa').removeClass('fa-trash-alt').addClass('fa-hand-paper-o').addClass('repeat-rotate');
-    var deleteTarget = $(this).closest('.mycolle-list-item');
+    const deleteTarget = $(this).closest('.mycolle-list-item');
 
     window.COMMON.REQUEST.sendToServer(url, window.COMMON.REQUEST.METHOD_POST, data, $.proxy(parent.handleDeleteMycolleResponse, null, this, deleteTarget));
   },
@@ -591,12 +590,9 @@ MYCOLLE.SETTINGS.DATA_CONTROLLER = {
     $(deleteTarget).fadeOut().queue(function () {
       $(this).remove();
     });
-
-
   }
-
 };
 
-$(function () {
+$(() => {
   MYCOLLE.SETTINGS.DATA_CONTROLLER.init();
 });
